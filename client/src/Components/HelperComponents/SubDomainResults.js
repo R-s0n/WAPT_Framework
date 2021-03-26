@@ -1,35 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {useToasts} from 'react-toast-notifications';
-import axios from 'axios';
 
 const SubDomainResults = props => {
-    const [subdomains, setSubdomains] = useState([]);
-    const [loaded, setLoaded] = useState(false);
-
     const {addToast} = useToasts()
 
-    useEffect(()=>{
-        const fqdnId = props.thisFqdn._id;
-        axios.post('http://localhost:8000/api/subdomainlist', {
-            fqdnId
-        })
-            .then(res=>{
-                let scanner = props.thisScanner;
-                setSubdomains(res.data[scanner]);
-                setLoaded(true);
-            })
-            .catch(err=>console.log(err))
-    }, [props.thisFqdn._id, props.thisScanner])
-
     const deleteSubdomains = (e) => {
-        let data = {};
-        let scanner = props.thisScanner;
-        data["fqdnId"] = props.thisFqdn._id;
-        data[scanner] = [];
-        console.log(data);
-        axios.post('http://localhost:8000/api/subdomainlist/update', data)
-            .then(res=>props.thisFormCompleted(false))
-            .catch(err=>console.log(err))
+        props.resultsFunction();
     }
 
     const resultsStyle = {
@@ -42,7 +18,7 @@ const SubDomainResults = props => {
 
     const copyListToClipboard = (e) => {
         let copyString = "";
-        subdomains.map((fqdn, i)=>{
+        props.subdomainList.map((fqdn, i)=>{
             return (copyString += fqdn + "\n")
         })
         navigator.clipboard.writeText(copyString);
@@ -52,16 +28,14 @@ const SubDomainResults = props => {
     return (
         <div className="row mt-1">
             <div className="col-12">
-                <h5>Results:</h5>
+                <h5>Results ({props.subdomainList.length}):</h5>
                 <div style={resultsStyle}>
                 {
-                    loaded === true ?
-                    subdomains.map((subdomain, i)=>{
+                    props.subdomainList.map((subdomain, i)=>{
                         return (
                             <p key={i} style={{marginBottom:'1px', marginLeft:'15px'}}><a href={subdomain} target="_blank" rel="noreferrer">{subdomain}</a></p>
                         )
-                    }) :
-                    ''
+                    })
                 }
                 </div>
             </div>

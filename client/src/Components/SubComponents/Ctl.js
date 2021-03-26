@@ -6,29 +6,49 @@ import SubDomainForm from '../HelperComponents/SubDomainForm';
 
 const Ctl = props => {
     const [formCompleted, setFormCompleted] = useState(false);
+    const [subdomainList, setSubdomainList] = useState([])
+    const [loaded, setLoaded] = useState(false);
 
     const {addToast} = useToasts()
 
     useEffect(()=>{
-        const fqdnId = props.thisFqdn._id;
-        axios.post('http://localhost:8000/api/subdomainlist', {fqdnId})
+        axios.post('http://localhost:8000/api/fqdn', {_id:props.thisFqdn._id})
             .then(res=>{
                 if (res.data !== null){
-                    const tempArr = res.data.ctl;
+                    const tempArr = res.data.recon.subdomains.ctl;
                     if (tempArr.length > 0){
+                        setSubdomainList(res.data.recon.subdomains.ctl)
                         setFormCompleted(true);
                     }
                 }
+                setLoaded(true);
             })
-    }, [props.thisFqdn._id, props])
-
-    const thisFormCompleted = (completed) => {
-        setFormCompleted(completed);
-    }
-
+    }, [props.thisFqdn._id])
+    
     const copyToClipboard = e => {
         navigator.clipboard.writeText(e.target.innerText)
         addToast(`Copied "${e.target.innerText}" to Clipboard`, {appearance:'info',autoDismiss:true});
+    }
+
+    const addCtlData = (list) => {
+        const tempFqdn = props.thisFqdn;
+        tempFqdn.recon.subdomains.ctl = list.split("\n");
+        axios.post('http://localhost:8000/api/fqdn/update', tempFqdn)
+            .then(res=>{
+                setSubdomainList(res.data.recon.subdomains.ctl)
+                setFormCompleted(true);
+            })
+            .catch(err=>console.log(err));
+    }
+
+    const deleteCtlData = () => {
+        const tempFqdn = props.thisFqdn;
+        tempFqdn.recon.subdomains.ctl = [];
+        axios.post('http://localhost:8000/api/fqdn/update', tempFqdn)
+            .then(res=>{
+                setSubdomainList(res.data.recon.subdomains.ctl)
+                setFormCompleted(false);
+            })
     }
 
     return (
@@ -42,10 +62,10 @@ const Ctl = props => {
                 </div>
             </div>
             <div className="row">
-            {
-                    formCompleted === false ?
-                    <SubDomainForm thisFqdn={props.thisFqdn} thisFormCompleted={thisFormCompleted} thisScanner="ctl"/> :
-                    <SubDomainResults thisFqdn={props.thisFqdn} thisFormCompleted={thisFormCompleted} thisScanner="ctl"/>
+                {
+                    loaded && formCompleted === false ?
+                    <SubDomainForm thisFqdn={props.thisFqdn} thisScanner="ctl" formFunction={addCtlData}/> :
+                    <SubDomainResults thisFqdn={props.thisFqdn} resultsFunction={deleteCtlData} subdomainList={subdomainList} thisScanner="ctl"/>
                 }
             </div>
         </div>

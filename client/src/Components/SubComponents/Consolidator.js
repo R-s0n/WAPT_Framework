@@ -4,19 +4,31 @@ import axios from 'axios';
 
 const Consolidator = props => {
     const [consolidatedList, setConsolidatedList] = useState([]);
+    const [consolidatedNewList, setConsolidatedNewList] = useState([]);
+    const [deltaList, setDeltaList] = useState([])
     const [loaded, setLoaded] = useState(false);
+    const [refresh, setRefresh] = useState(0);
 
     const {addToast} = useToasts()
 
     useEffect(()=>{
-        let fqdnId = props.thisFqdn._id;
-        axios.post('http://localhost:8000/api/subdomainlist', {fqdnId})
+        axios.post('http://localhost:8000/api/fqdn', {_id:props.thisFqdn._id})
             .then(res=>{
-                setConsolidatedList(res.data.consolidated);
+                let consolidatedOld = res.data.recon.subdomains.consolidated;
+                let consolidatedNew = res.data.recon.subdomains.consolidatedNew
+                setConsolidatedList(consolidatedOld);
+                setConsolidatedNewList(consolidatedNew);
+                let deltaArr = [];
+                for (const fqdn of consolidatedNew){
+                    if (consolidatedOld.includes(fqdn) === false){
+                        deltaArr.push(fqdn);
+                    }
+                }
+                setDeltaList(deltaArr);
                 setLoaded(true);
             })
             .catch(err=>console.log(err))
-    }, [props.thisFqdn._id])
+    }, [props.thisFqdn._id, refresh])
     
     const buildConsolidatedList = (sublist3r, amass, assetfinder, gau) => {
         let consolidated = [];
@@ -40,19 +52,21 @@ const Consolidator = props => {
                 consolidated.push(gau[i]);
             }
         }
-        setConsolidatedList(consolidated);
+        setConsolidatedList(consolidatedNewList);
+        setConsolidatedNewList(consolidated);
         setLoaded(true);
-        let fqdnId = props.thisFqdn._id;
-        axios.post('http://localhost:8000/api/subdomainlist/update', {fqdnId, consolidated})
-            .then(res=>{console.log(res.data)})
+        let tempFqdn = props.thisFqdn;
+        tempFqdn.recon.subdomains.consolidated = consolidatedNewList;
+        tempFqdn.recon.subdomains.consolidatedNew = consolidated;
+        axios.post('http://localhost:8000/api/fqdn/update', tempFqdn)
+            .then(res=>{let temp = refresh + 1; setRefresh(temp); console.log(res);})
             .catch(err=>console.log(err))
     }
     
     const consolidate = () => {
-        const fqdnId = props.thisFqdn._id;
-        axios.post('http://localhost:8000/api/subdomainlist', {fqdnId})
+        axios.post('http://localhost:8000/api/fqdn', {_id:props.thisFqdn._id})
             .then(res=>{
-                buildConsolidatedList(res.data.sublist3r, res.data.amass, res.data.assetfinder, res.data.gau);
+                buildConsolidatedList(res.data.recon.subdomains.sublist3r, res.data.recon.subdomains.amass, res.data.recon.subdomains.assetfinder, res.data.recon.subdomains.gau);
             })
             .catch(err=>console.log(err));
     }
@@ -81,7 +95,10 @@ const Consolidator = props => {
                 </div>
             </div>
             <div className="row mt-5">
-                <div style={{width: '1000px', height: '500px', overflowY: 'scroll', border: '1px solid black'}}className="col-12">
+                <div style={{width: '250px', height: '500px', overflowY: 'scroll', border: '1px solid black'}}className="col-4">
+                    <button className="btn btn-primary mt-3 btn-sm float-right" onClick={copyListToClipboard}>Copy</button>
+                    <h5 className="mt-3">Old Consolidated List ({consolidatedList.length})</h5>
+                    <hr className="mt-3 mb-1"/>
                     { loaded === true ?
                         consolidatedList.map((subdomain, i)=>{
                             return (<p className="mb-1" key={i}>{subdomain}</p>)
@@ -89,8 +106,29 @@ const Consolidator = props => {
                         ''
                     }
                 </div>
+                <div style={{width: '250px', height: '500px', overflowY: 'scroll', border: '1px solid black'}}className="col-4 ml-4">
+                    <button className="btn btn-primary mt-3 btn-sm float-right" onClick={copyListToClipboard}>Copy</button>
+                    <h5 className="mt-3">New Consolidated List ({consolidatedNewList.length})</h5>
+                    <hr className="mt-3 mb-1"/>
+                    { loaded === true ?
+                        consolidatedNewList.map((subdomain, i)=>{
+                            return (<p className="mb-1" key={i}>{subdomain}</p>)
+                        }) :
+                        ''
+                    }
+                </div>
+                <div style={{width: '100px', height: '500px', overflowY: 'scroll', border: '1px solid black'}}className="col-3 ml-4">
+                    <button className="btn btn-primary mt-3 btn-sm float-right" onClick={copyListToClipboard}>Copy</button>
+                    <h5 className="mt-3">Delta ({deltaList.length})</h5>
+                    <hr className="mt-3 mb-1"/>
+                    { loaded === true ?
+                        deltaList.map((subdomain, i)=>{
+                            return (<p className="mb-1" key={i}>{subdomain}</p>)
+                        }) :
+                        ''
+                    }
+                </div>
             </div>
-            <button className="btn btn-primary mt-3" onClick={copyListToClipboard}>Copy</button>
         </div>
     )
 }

@@ -12,14 +12,6 @@ const AddFqdnModal = props => {
             .then(res=>{
                 props.setFqdns([...props.fqdns, res.data]);
                 props.setNoFqdns(false);
-                axios.post('http://localhost:8000/api/subdomainlist/new', {fqdnId:res.data._id})
-                    .then(res=>{
-                        console.log(res);
-                        axios.post('http://localhost:8000/api/urllist/new', {fqdnId:res.data.fqdnId})
-                            .then(res=>console.log(res))
-                            .catch(err=>console.log(err))
-                    })
-                    .catch(err=>console.log(err))
             })
             .catch(err=>console.log(err))
     }

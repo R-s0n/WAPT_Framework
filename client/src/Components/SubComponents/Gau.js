@@ -6,29 +6,49 @@ import SubDomainForm from '../HelperComponents/SubDomainForm';
 
 const Gau = props => {
     const [formCompleted, setFormCompleted] = useState(false);
+    const [subdomainList, setSubdomainList] = useState([])
+    const [loaded, setLoaded] = useState(false);
 
     const {addToast} = useToasts()
 
     useEffect(()=>{
-        const fqdnId = props.thisFqdn._id;
-        axios.post('http://localhost:8000/api/subdomainlist', {fqdnId})
+        axios.post('http://localhost:8000/api/fqdn', {_id:props.thisFqdn._id})
             .then(res=>{
                 if (res.data !== null){
-                    const tempArr = res.data.gau;
+                    const tempArr = res.data.recon.subdomains.gau;
                     if (tempArr.length > 0){
+                        setSubdomainList(res.data.recon.subdomains.gau)
                         setFormCompleted(true);
                     }
                 }
+                setLoaded(true);
             })
-    }, [props.thisFqdn._id, props])
-
-    const thisFormCompleted = (completed) => {
-        setFormCompleted(completed);
-    }
-
+    }, [props.thisFqdn._id])
+    
     const copyToClipboard = e => {
         navigator.clipboard.writeText(e.target.innerText)
         addToast(`Copied "${e.target.innerText}" to Clipboard`, {appearance:'info',autoDismiss:true});
+    }
+
+    const addGauData = (list) => {
+        const tempFqdn = props.thisFqdn;
+        tempFqdn.recon.subdomains.gau = list.split("\n");
+        axios.post('http://localhost:8000/api/fqdn/update', tempFqdn)
+            .then(res=>{
+                setSubdomainList(res.data.recon.subdomains.gau)
+                setFormCompleted(true);
+            })
+            .catch(err=>console.log(err));
+    }
+
+    const deleteGauData = () => {
+        const tempFqdn = props.thisFqdn;
+        tempFqdn.recon.subdomains.gau = [];
+        axios.post('http://localhost:8000/api/fqdn/update', tempFqdn)
+            .then(res=>{
+                setSubdomainList(res.data.recon.subdomains.gau)
+                setFormCompleted(false);
+            })
     }
 
     return (
@@ -43,9 +63,9 @@ const Gau = props => {
             </div>
             <div className="row">
             {
-                    formCompleted === false ?
-                    <SubDomainForm thisFqdn={props.thisFqdn} thisFormCompleted={thisFormCompleted} thisScanner="gau"/> :
-                    <SubDomainResults thisFqdn={props.thisFqdn} thisFormCompleted={thisFormCompleted} thisScanner="gau"/>
+                    loaded && formCompleted === false ?
+                    <SubDomainForm thisFqdn={props.thisFqdn} thisScanner="gau" formFunction={addGauData}/> :
+                    <SubDomainResults thisFqdn={props.thisFqdn} resultsFunction={deleteGauData} subdomainList={subdomainList} thisScanner="gau"/>
                 }
             </div>
         </div>

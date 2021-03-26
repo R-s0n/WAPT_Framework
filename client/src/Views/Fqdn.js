@@ -17,6 +17,7 @@ const Fqdn = props => {
         "Creative Testing",
         "Resources",
         "Vulnerabilities",
+        "Wordlists",
         "Notes",
         "Report"
     ]
@@ -30,7 +31,7 @@ const Fqdn = props => {
 
     return (
         <>
-        <nav style={{borderBottom: '2px groove #284B63'}} className="pl-4 mb-3 navbar navbar-expand-lg bg-dark">
+        <nav style={{borderBottom: '2px groove #284B63'}} className="pl-2 mb-3 navbar navbar-expand-lg bg-dark">
             <div className="container-fluid">
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-3 mb-lg-0">
@@ -38,13 +39,13 @@ const Fqdn = props => {
                         methodologyTabs.map((tab, i) => {return (
                         <li className="mr-3 nav-item" key={i}>
                             { i === activeTab ?
-                            <button style={{width: '145px'}} className="border border-info nav-link btn btn-primary text-secondary active" aria-current="page" href="#">{tab}</button> :
-                            <button style={{width: '145px'}} className="border border-info nav-link btn btn-primary text-secondary" onClick={()=>setActiveTab(i)}aria-current="page" href="#">{tab}</button>
+                            <button style={{width: '135px'}} className="border border-info nav-link btn btn-primary text-secondary active" aria-current="page" href="#">{tab}</button> :
+                            <button style={{width: '135px'}} className="border border-info nav-link btn btn-primary text-secondary" onClick={()=>setActiveTab(i)}aria-current="page" href="#">{tab}</button>
                             }
                             </li>
                         )})
                         }
-                        <li><button style={{width: '145px'}} className="border border-info nav-link btn btn-primary text-secondary" onClick={deleteFqdn}>Delete</button></li>
+                        <li><button style={{width: '135px'}} className="border border-info nav-link btn btn-primary text-secondary" onClick={deleteFqdn}>Delete</button></li>
                     </ul>
                 </div>
             </div>

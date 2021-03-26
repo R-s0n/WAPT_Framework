@@ -7,29 +7,50 @@ import SubDomainResults from '../HelperComponents/SubDomainResults';
 
 const Httprobe = props => {
     const [formCompleted, setFormCompleted] = useState(false);
+    const [subdomainList, setSubdomainList] = useState([])
+    const [loaded, setLoaded] = useState(false);
 
     const {addToast} = useToasts()
 
     useEffect(()=>{
-        const fqdnId = props.thisFqdn._id;
-        axios.post('http://localhost:8000/api/subdomainlist', {fqdnId})
+        setFormCompleted(false);
+        axios.post('http://localhost:8000/api/fqdn', {_id:props.thisFqdn._id})
             .then(res=>{
                 if (res.data !== null){
-                    const tempArr = res.data.httprobe;
+                    const tempArr = res.data.recon.subdomains.httprobe;
                     if (tempArr.length > 0){
+                        setSubdomainList(res.data.recon.subdomains.httprobe)
                         setFormCompleted(true);
                     }
                 }
+                setLoaded(true);
             })
-    }, [props.thisFqdn._id, props])
-
-    const thisFormCompleted = (completed) => {
-        setFormCompleted(completed);
-    }
+    }, [props])
     
     const copyToClipboard = e => {
         navigator.clipboard.writeText(e.target.innerText)
         addToast(`Copied "${e.target.innerText}" to Clipboard`, {appearance:'info',autoDismiss:true});
+    }
+
+    const addHttprobeData = (list) => {
+        const tempFqdn = props.thisFqdn;
+        tempFqdn.recon.subdomains.httprobe = list.split("\n");
+        axios.post('http://localhost:8000/api/fqdn/update', tempFqdn)
+            .then(res=>{
+                setSubdomainList(res.data.recon.subdomains.httprobe)
+                setFormCompleted(true);
+            })
+            .catch(err=>console.log(err));
+    }
+
+    const deleteHttprobeData = () => {
+        const tempFqdn = props.thisFqdn;
+        tempFqdn.recon.subdomains.httprobe = [];
+        axios.post('http://localhost:8000/api/fqdn/update', tempFqdn)
+            .then(res=>{
+                setSubdomainList(res.data.recon.subdomains.httprobe)
+                setFormCompleted(false);
+            })
     }
 
     return (
@@ -43,10 +64,10 @@ const Httprobe = props => {
                 </div>
             </div>
             <div className="row">
-                {
-                    formCompleted === false ?
-                    <SubDomainForm thisFqdn={props.thisFqdn} thisFormCompleted={thisFormCompleted} thisScanner="httprobe"/> :
-                    <SubDomainResults thisFqdn={props.thisFqdn} thisFormCompleted={thisFormCompleted} thisScanner="httprobe"/>
+            {
+                    loaded && formCompleted === false ?
+                    <SubDomainForm thisFqdn={props.thisFqdn} thisScanner="httprobe" formFunction={addHttprobeData}/> :
+                    <SubDomainResults thisFqdn={props.thisFqdn} resultsFunction={deleteHttprobeData} subdomainList={subdomainList} thisScanner="httprobe"/>
                 }
             </div>
         </div>

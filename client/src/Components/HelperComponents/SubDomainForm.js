@@ -1,22 +1,11 @@
 import React, {useState} from 'react';
-import axios from 'axios';
 
 const SubDomainForm = props => {
     const [formData, setformData] = useState([]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const subdomainArray = formData.split("\n");
-        let data = {};
-        let scanner = props.thisScanner;
-        data["fqdnId"] = props.thisFqdn._id;
-        data[scanner] = subdomainArray;
-        console.log(data);
-        axios.post('http://localhost:8000/api/subdomainlist/update', data)
-            .then(res=>{
-                props.thisFormCompleted(true);
-            })
-            .catch(err=>console.log(err))
+        props.formFunction(formData);
     }
     
     return (

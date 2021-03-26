@@ -11,6 +11,15 @@ const UrlListSchema = new mongoose.Schema({
     Github: [{
         type: String
     }],
+    GithubSearch: [{
+        payload: String,
+        results: Number,
+        url: String
+    }],
+    GithubUsers: [{
+        username: String,
+        githubUrl: String
+    }],
     Google: [{
         type: String
     }],

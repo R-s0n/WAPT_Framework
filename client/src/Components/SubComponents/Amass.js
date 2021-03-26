@@ -6,30 +6,50 @@ import SubDomainForm from '../HelperComponents/SubDomainForm';
 
 const Amass = props => {
     const [formCompleted, setFormCompleted] = useState(false);
+    const [subdomainList, setSubdomainList] = useState([]);
+    const [loaded, setLoaded] = useState(false);
     const regex = "{1,3}"
 
     const {addToast} = useToasts()
 
     useEffect(()=>{
-        const fqdnId = props.thisFqdn._id;
-        axios.post('http://localhost:8000/api/subdomainlist', {fqdnId})
+        axios.post('http://localhost:8000/api/fqdn', {_id:props.thisFqdn._id})
             .then(res=>{
                 if (res.data !== null){
-                    const tempArr = res.data.amass;
+                    const tempArr = res.data.recon.subdomains.amass;
                     if (tempArr.length > 0){
+                        setSubdomainList(res.data.recon.subdomains.amass)
                         setFormCompleted(true);
                     }
                 }
+                setLoaded(true);
             })
-    }, [props.thisFqdn._id, props])
-
-    const thisFormCompleted = (completed) => {
-        setFormCompleted(completed);
-    }
+    }, [props.thisFqdn._id])
 
     const copyToClipboard = e => {
         navigator.clipboard.writeText(e.target.innerText)
         addToast(`Copied "${e.target.innerText}" to Clipboard`, {appearance:'info',autoDismiss:true});
+    }
+
+    const addAmassData = (list) => {
+        const tempFqdn = props.thisFqdn;
+        tempFqdn.recon.subdomains.amass = list.split("\n");
+        axios.post('http://localhost:8000/api/fqdn/update', tempFqdn)
+            .then(res=>{
+                setSubdomainList(res.data.recon.subdomains.amass)
+                setFormCompleted(true);
+            })
+            .catch(err=>console.log(err));
+    }
+
+    const deleteAmassData = () => {
+        const tempFqdn = props.thisFqdn;
+        tempFqdn.recon.subdomains.amass = [];
+        axios.post('http://localhost:8000/api/fqdn/update', tempFqdn)
+            .then(res=>{
+                setSubdomainList(res.data.recon.subdomains.amass)
+                setFormCompleted(false);
+            })
     }
 
     return (
@@ -45,10 +65,9 @@ const Amass = props => {
             </div>
             <div className="row">
             {
-                    formCompleted === false ?
-                    <SubDomainForm thisFqdn={props.thisFqdn} thisFormCompleted={thisFormCompleted} thisScanner="amass"/> :
-                    <SubDomainResults thisFqdn={props.thisFqdn} thisFormCompleted={thisFormCompleted} thisScanner="amass"/>
-                }
+                    loaded && formCompleted === false ?
+                    <SubDomainForm thisFqdn={props.thisFqdn} thisScanner="amass" formFunction={addAmassData}/> :
+                    <SubDomainResults thisFqdn={props.thisFqdn} resultsFunction={deleteAmassData} subdomainList={subdomainList} thisScanner="amass"/>                }
             </div>
         </div>
     )

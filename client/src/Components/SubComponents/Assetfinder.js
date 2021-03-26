@@ -6,29 +6,49 @@ import SubDomainForm from '../HelperComponents/SubDomainForm';
 
 const Assetfinder = props => {
     const [formCompleted, setFormCompleted] = useState(false);
+    const [subdomainList, setSubdomainList] = useState([])
+    const [loaded, setLoaded] = useState(false);
 
     const {addToast} = useToasts()
 
     useEffect(()=>{
-        const fqdnId = props.thisFqdn._id;
-        axios.post('http://localhost:8000/api/subdomainlist', {fqdnId})
+        axios.post('http://localhost:8000/api/fqdn', {_id:props.thisFqdn._id})
             .then(res=>{
                 if (res.data !== null){
-                    const tempArr = res.data.assetfinder;
+                    const tempArr = res.data.recon.subdomains.assetfinder;
                     if (tempArr.length > 0){
+                        setSubdomainList(res.data.recon.subdomains.assetfinder)
                         setFormCompleted(true);
                     }
                 }
+                setLoaded(true);
             })
-    }, [props.thisFqdn._id, props])
-
-    const thisFormCompleted = (completed) => {
-        setFormCompleted(completed);
-    }
-
+    }, [props.thisFqdn._id])
+    
     const copyToClipboard = e => {
         navigator.clipboard.writeText(e.target.innerText)
         addToast(`Copied "${e.target.innerText}" to Clipboard`, {appearance:'info',autoDismiss:true});
+    }
+
+    const addAssetfinderData = (list) => {
+        const tempFqdn = props.thisFqdn;
+        tempFqdn.recon.subdomains.assetfinder = list.split("\n");
+        axios.post('http://localhost:8000/api/fqdn/update', tempFqdn)
+            .then(res=>{
+                setSubdomainList(res.data.recon.subdomains.assetfinder)
+                setFormCompleted(true);
+            })
+            .catch(err=>console.log(err));
+    }
+
+    const deleteAssetfinderData = () => {
+        const tempFqdn = props.thisFqdn;
+        tempFqdn.recon.subdomains.assetfinder = [];
+        axios.post('http://localhost:8000/api/fqdn/update', tempFqdn)
+            .then(res=>{
+                setSubdomainList(res.data.recon.subdomains.assetfinder)
+                setFormCompleted(false);
+            })
     }
 
     return (
@@ -43,9 +63,9 @@ const Assetfinder = props => {
             </div>
             <div className="row">
             {
-                    formCompleted === false ?
-                    <SubDomainForm thisFqdn={props.thisFqdn} thisFormCompleted={thisFormCompleted} thisScanner="assetfinder"/> :
-                    <SubDomainResults thisFqdn={props.thisFqdn} thisFormCompleted={thisFormCompleted} thisScanner="assetfinder"/>
+                    loaded && formCompleted === false ?
+                    <SubDomainForm thisFqdn={props.thisFqdn} thisScanner="assetfinder" formFunction={addAssetfinderData}/> :
+                    <SubDomainResults thisFqdn={props.thisFqdn} resultsFunction={deleteAssetfinderData} subdomainList={subdomainList} thisScanner="assetfinder"/>
                 }
             </div>
         </div>

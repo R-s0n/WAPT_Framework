@@ -2,6 +2,67 @@ const mongoose = require('mongoose');
 
 const FqdnSchema = new mongoose.Schema({
     fqdn: {type:String},
+    recon: {
+        subdomains: {
+            sublist3r: [{
+                type: String
+            }],
+            amass: [{
+                type: String
+            }],
+            assetfinder: [{
+                type: String
+            }],
+            gau : [{
+                type: String
+            }],
+            ctl : [{
+                type: String
+            }],
+            consolidated : [{
+                type: String
+            }],
+            consolidatedNew : [{
+                type: String
+            }],
+            httprobe : [{
+                type: String
+            }]
+        },
+        notableUrls: {
+            eyeWitness: [{
+                type: String
+            }]
+        },
+        subdomainTakeover: {
+            subjack: [{
+                type: String
+            }]
+        },
+        osint: {
+            notableRepos: [{
+                type: String
+            }],
+            GithubSearch: [{
+                payload: String,
+                results: Number,
+                url: String
+            }],
+            GithubUsers: [{
+                username: String,
+                githubUrl: String
+            }],
+            Google: [{
+                type: String
+            }],
+            Shodan: [{
+                type: String
+            }],
+            Censys: [{
+                type: String
+            }]
+        }
+    }
 }, {timestamps: true});
 
 module.exports.Fqdn = mongoose.model("Fqdn", FqdnSchema);

@@ -29,9 +29,7 @@ function App() {
   }
 
   const deleteFqdn = (fqdn, index) => {
-    axios.post('http://localhost:8000/api/fqdn/delete', {
-      id:fqdn._id
-    })
+    axios.post('http://localhost:8000/api/fqdn/delete', fqdn)
       .then(res=>{
         if (fqdns.length === 1){
           setNoFqdns(true);
@@ -82,7 +80,7 @@ function App() {
         </div>
       </div>
     </nav>
-    {noFqdns === false && <Fqdn index={activeTab} thisFqdn={fqdns[activeTab]} allFqdns={fqdns} buttonFunction={deleteFqdn} setActiveTab={setActiveTab} />}
+    {noFqdns === false && <Fqdn index={activeTab} thisFqdn={fqdns[activeTab]} buttonFunction={deleteFqdn} setActiveTab={setActiveTab} />}
     </>
   );
 }

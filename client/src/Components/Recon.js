@@ -11,6 +11,8 @@ import Slackbot from './SubComponents/Slackbot';
 import Subjack from './SubComponents/Subjack';
 import EyeWitness from './SubComponents/EyeWitness';
 import GithubOsint from './SubComponents/GithubOsint';
+import GithubSearch from './SubComponents/GithubSearch';
+import GithubBruteDork from './SubComponents/GithubBruteDork';
 import '../Component.css';
 
 const Recon = props => {
@@ -35,7 +37,16 @@ const Recon = props => {
                 </ul>
                 <li>OSINT - Search Engines</li>
                 <ul>
-                    <li onClick={(e)=>setCurrentStep(10)}>Github</li>
+                    <li>GitHub</li>
+                    <ul>
+                        <li onClick={(e)=>setCurrentStep(10)}>Automated - Github-search</li>
+                        <li onClick={(e)=>setCurrentStep(11)}>Manual Search - Languages</li>
+                        <li onClick={(e)=>setCurrentStep(12)}>Automated - Github_Brute-Dork</li>
+                        <li onClick={(e)=>setCurrentStep(11)}>Manual Search - Users</li>
+                        <li onClick={(e)=>setCurrentStep(10)}>Automated - Gitrob</li>
+                        <li onClick={(e)=>setCurrentStep(10)}>Automated - Github-search (Round Two)</li>
+                        <li onClick={(e)=>setCurrentStep(11)}>Manual Search - Creative</li>
+                    </ul>
                     <li>Google</li>
                     <li>Shodan</li>
                     <li>Censys</li>
@@ -100,9 +111,19 @@ const Recon = props => {
                 <ToastProvider><Slackbot thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
-            {
+                        {
                 currentStep === 10 ?
+                <ToastProvider><GithubSearch thisFqdn={props.thisFqdn} /></ToastProvider> :
+                ''
+            }
+            {
+                currentStep === 11 ?
                 <ToastProvider><GithubOsint thisFqdn={props.thisFqdn} /></ToastProvider> :
+                ''
+            }
+                        {
+                currentStep === 12 ?
+                <ToastProvider><GithubBruteDork thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
         </div>
