@@ -4,6 +4,15 @@ const FqdnSchema = new mongoose.Schema({
     fqdn: {type:String},
     recon: {
         subdomains: {
+            gospider: [{
+                type: String
+            }],
+            hakrawler: [{
+                type: String
+            }],
+            subdomainizer: [{
+                type: String
+            }],
             sublist3r: [{
                 type: String
             }],
@@ -62,6 +71,11 @@ const FqdnSchema = new mongoose.Schema({
                 type: String
             }]
         }
+    },
+    loot: {
+        highEntrophy: [{
+            type: String
+        }]
     }
 }, {timestamps: true});
 

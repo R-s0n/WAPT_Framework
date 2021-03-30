@@ -22,18 +22,44 @@ const Recon = props => {
         <>
         <div className="bg-secondary checklistStyle">
             <ul>
+                <li>Application / Server Information</li>
+                <ul>
+                    <li>Application Framework(s)</li>
+                    <li>Server Info</li>
+                    <li>SSL Info</li>
+                </ul>
                 <li>Subdomain Enumeration</li>
                 <ul>
-                    <li onClick={(e)=>setCurrentStep(0)}>Tool - Sublist3r</li>
-                    <li onClick={(e)=>setCurrentStep(1)}>Tool - Amass</li>
-                    <li onClick={(e)=>setCurrentStep(2)}>Tool - Assetfinder</li>
-                    <li onClick={(e)=>setCurrentStep(3)}>Tool - GetAllUrls (gau)</li>
-                    <li onClick={(e)=>setCurrentStep(4)}>Certificate Transparency Logs</li>
-                    <li onClick={(e)=>setCurrentStep(5)}>Build List of Unique Subdomains</li>
-                    <li onClick={(e)=>setCurrentStep(6)}>Check SubDomain Status - Httpprobe</li>
-                    <li onClick={(e)=>setCurrentStep(7)}>Subdomain Takeover - Subjack</li>
-                    <li onClick={(e)=>setCurrentStep(8)}>Final Analysis - EyeWitness</li>
-                    <li onClick={(e)=>setCurrentStep(9)}>Configure Slackbot</li>
+                    <li>Subdomain Scraping</li>
+                    <ul>
+                        <li onClick={(e)=>setCurrentStep(0)}>Tool - Sublist3r</li>
+                        <li onClick={(e)=>setCurrentStep(1)}>Tool - Amass</li>
+                        <li onClick={(e)=>setCurrentStep(2)}>Tool - Assetfinder</li>
+                        <li onClick={(e)=>setCurrentStep(3)}>Tool - GetAllUrls (gau)</li>
+                        <li onClick={(e)=>setCurrentStep(4)}>Certificate Transparency Logs</li>
+                    </ul>
+                    <li>Link / JS Discovery</li>
+                    <ul>
+                        <li>Tool - GoSpider</li>
+                        <li>Tool - hakrwler</li>
+                        <li>Tool - SubDomainizer</li>
+                    </ul>
+                    <li>Subdomain Bruteforcing</li>
+                    <ul>
+                        <li>Build Custom Wordlist</li>
+                        <li>Tool - Amass (Enum)</li>
+                        <li>Tool - shuffleDNS</li>
+                        <li>Tool - CommonSpeak2</li>
+                        <li>Check for Alterations / Mutations</li>
+                    </ul>
+                    <li>Final Analysis and Misc.</li>
+                    <ul>
+                        <li onClick={(e)=>setCurrentStep(5)}>Build List of Unique Subdomains</li>
+                        <li onClick={(e)=>setCurrentStep(6)}>Check SubDomain Status - Httpprobe</li>
+                        <li onClick={(e)=>setCurrentStep(8)}>Final Analysis - EyeWitness</li>
+                        <li onClick={(e)=>setCurrentStep(7)}>Subdomain Takeover - Subjack</li>
+                        <li onClick={(e)=>setCurrentStep(9)}>Configure Slackbot</li>
+                    </ul>
                 </ul>
                 <li>OSINT - Search Engines</li>
                 <ul>
@@ -50,12 +76,6 @@ const Recon = props => {
                     <li>Google</li>
                     <li>Shodan</li>
                     <li>Censys</li>
-                </ul>
-                <li>Additional Information</li>
-                <ul>
-                    <li>Application Framework(s)</li>
-                    <li>Server Info</li>
-                    <li>SSL Info</li>
                 </ul>
                 <li>Summary</li>
             </ul>

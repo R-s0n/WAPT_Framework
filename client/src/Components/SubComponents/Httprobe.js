@@ -60,7 +60,8 @@ const Httprobe = props => {
                     <p><b>DETAILS: </b>Take a list of domains and probe for working http and https servers.</p>
                     <p><b>GOAL: </b>Iterate through the list of unique FQDNs to identify all domain names that are being hosted on live servers.</p>
                     <p><b>DOWNLOAD / Install: </b><span onClick={copyToClipboard}>go get -u github.com/tomnomnom/httprobe</span></p>
-                    <p><b>RUN: </b><span onClick={copyToClipboard}>cat consolidated.{props.thisFqdn.fqdn}.txt | httprobe &gt; httprobe.{props.thisFqdn.fqdn}.txt; cat httprobe.{props.thisFqdn.fqdn}.txt | xclip -i -selection clipboard</span></p>
+                    <p><b>RUN (Shallow): </b><span onClick={copyToClipboard}>cat consolidated.{props.thisFqdn.fqdn}.txt | httprobe &gt; httprobe.{props.thisFqdn.fqdn}.txt; cat httprobe.{props.thisFqdn.fqdn}.txt | xclip -i -selection clipboard</span></p>
+                    <p><b>RUN (Deep): </b><span onClick={copyToClipboard}>cat consolidated.{props.thisFqdn.fqdn}.txt | httprobe &gt; httprobe.{props.thisFqdn.fqdn}.txt; cat httprobe.{props.thisFqdn.fqdn}.txt | xclip -i -selection clipboard</span></p>
                 </div>
             </div>
             <div className="row">

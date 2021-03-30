@@ -9,6 +9,7 @@ const Fqdn = props => {
     useEffect(()=>setActiveTab(0), [props.index]);
 
     const methodologyTabs = [
+        "Dashboard",
         "Recon",
         "Enumeration",
         "Auth Testing",
@@ -17,7 +18,6 @@ const Fqdn = props => {
         "Creative Testing",
         "Resources",
         "Vulnerabilities",
-        "Wordlists",
         "Notes",
         "Report"
     ]
@@ -51,12 +51,12 @@ const Fqdn = props => {
             </div>
         </nav>
         {
-            activeTab === 0 ?
+            activeTab === 1 ?
             <Recon thisFqdn={props.thisFqdn} /> :
             ""
         }
         {
-            activeTab === 1 ?
+            activeTab === 2 ?
             <Enumeration /> :
             ""
         }
