@@ -1,7 +1,7 @@
 
 .checklistStyle {
     display: inline-block;
-    width: 400px;
+    width: 350px;
     height: 800px;
     overflow-y: scroll;
     border: 1px solid black;

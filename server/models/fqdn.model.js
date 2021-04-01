@@ -28,6 +28,21 @@ const FqdnSchema = new mongoose.Schema({
             ctl : [{
                 type: String
             }],
+            shosubgo : [{
+                type: String
+            }],
+            subfinder : [{
+                type: String
+            }],
+            githubSearch : [{
+                type: String
+            }],
+            amassBrute : [{
+                type: String
+            }],
+            shuffledns : [{
+                type: String
+            }],
             consolidated : [{
                 type: String
             }],
@@ -35,6 +50,29 @@ const FqdnSchema = new mongoose.Schema({
                 type: String
             }],
             httprobe : [{
+                type: String
+            }],
+            httprobeAdded : [{
+                type: String
+            }],
+            httprobeRemoved : [{
+                type: String
+            }],
+            masscan : [{
+                ip: String,
+                timestamp: String,
+                ports: [{
+                    port: Number,
+                    proto: String,
+                    status: String,
+                    reason: String,
+                    ttl: Number
+                }]
+            }],
+            masscanAdded : [{
+                type: String
+            }],
+            masscanRemoved : [{
                 type: String
             }]
         },

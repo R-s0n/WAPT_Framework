@@ -14,17 +14,8 @@ const Consolidator = props => {
     useEffect(()=>{
         axios.post('http://localhost:8000/api/fqdn', {_id:props.thisFqdn._id})
             .then(res=>{
-                let consolidatedOld = res.data.recon.subdomains.consolidated;
-                let consolidatedNew = res.data.recon.subdomains.consolidatedNew
-                setConsolidatedList(consolidatedOld);
-                setConsolidatedNewList(consolidatedNew);
-                let deltaArr = [];
-                for (const fqdn of consolidatedNew){
-                    if (consolidatedOld.includes(fqdn) === false){
-                        deltaArr.push(fqdn);
-                    }
-                }
-                setDeltaList(deltaArr);
+                setConsolidatedList(res.data.recon.subdomains.consolidated);
+                setConsolidatedNewList(res.data.recon.subdomains.consolidatedNew);
                 setLoaded(true);
             })
             .catch(err=>console.log(err))
@@ -95,9 +86,9 @@ const Consolidator = props => {
                 </div>
             </div>
             <div className="row mt-5">
-                <div style={{width: '250px', height: '500px', overflowY: 'scroll', border: '1px solid black'}}className="col-4">
+                <div style={{width: '400px', height: '500px', overflowY: 'scroll', border: '1px solid black'}}className="col-5 ml-5">
                     <button className="btn btn-primary mt-3 btn-sm float-right" onClick={copyListToClipboard}>Copy</button>
-                    <h5 className="mt-3">Old Consolidated List ({consolidatedList.length})</h5>
+                    <h5 className="mt-3">Consolidated List ({consolidatedList.length})</h5>
                     <hr className="mt-3 mb-1"/>
                     { loaded === true ?
                         consolidatedList.map((subdomain, i)=>{
@@ -106,23 +97,12 @@ const Consolidator = props => {
                         ''
                     }
                 </div>
-                <div style={{width: '250px', height: '500px', overflowY: 'scroll', border: '1px solid black'}}className="col-4 ml-4">
+                <div style={{width: '400px', height: '500px', overflowY: 'scroll', border: '1px solid black'}}className="col-5 ml-5">
                     <button className="btn btn-primary mt-3 btn-sm float-right" onClick={copyListToClipboard}>Copy</button>
-                    <h5 className="mt-3">New Consolidated List ({consolidatedNewList.length})</h5>
+                    <h5 className="mt-3">New Subdomains ({consolidatedNewList.length})</h5>
                     <hr className="mt-3 mb-1"/>
                     { loaded === true ?
                         consolidatedNewList.map((subdomain, i)=>{
-                            return (<p className="mb-1" key={i}>{subdomain}</p>)
-                        }) :
-                        ''
-                    }
-                </div>
-                <div style={{width: '100px', height: '500px', overflowY: 'scroll', border: '1px solid black'}}className="col-3 ml-4">
-                    <button className="btn btn-primary mt-3 btn-sm float-right" onClick={copyListToClipboard}>Copy</button>
-                    <h5 className="mt-3">Delta ({deltaList.length})</h5>
-                    <hr className="mt-3 mb-1"/>
-                    { loaded === true ?
-                        deltaList.map((subdomain, i)=>{
                             return (<p className="mb-1" key={i}>{subdomain}</p>)
                         }) :
                         ''
