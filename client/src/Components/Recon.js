@@ -50,26 +50,23 @@ const Recon = props => {
                     </ul>
                     <li>Subdomain Bruteforcing</li>
                     <ul>
-                        <li onClick={(e)=>setCurrentStep(11)}>Build Custom Wordlist</li>
-                        <li onClick={(e)=>setCurrentStep(12)}>ShuffleDNS - Massive Wordlist</li>
+                        <li onClick={(e)=>setCurrentStep(11)}>ShuffleDNS - Massive Wordlist</li>
+                        <li onClick={(e)=>setCurrentStep(12)}>Build Custom Wordlist</li>
                         <li onClick={(e)=>setCurrentStep(13)}>ShuffleDNS - Custom Wordlist</li>
                     </ul>
-                    <li>Final Analysis and Misc.</li>
+                    <li>Final Analysis</li>
                     <ul>
                         <li onClick={(e)=>setCurrentStep(14)}>Build List of Unique Subdomains</li>
                         <li onClick={(e)=>setCurrentStep(15)}>Check SubDomain Status - Httpprobe</li>
                         <li onClick={(e)=>setCurrentStep(16)}>Final Analysis - EyeWitness</li>
+                    </ul>
+                    <li>Miscellaneous</li>
+                    <ul>
                         <li onClick={(e)=>setCurrentStep(17)}>Subdomain Takeover - Subjack</li>
                         <li onClick={(e)=>setCurrentStep(18)}>Configure Slackbot</li>
                     </ul>
                 </ul>
-                <li>Application / Server Information</li>
-                <ul>
-                    <li onClick={(e)=>setCurrentStep(19)}>Application Framework(s)</li>
-                    <li onClick={(e)=>setCurrentStep(20)}>Server Info</li>
-                    <li onClick={(e)=>setCurrentStep(21)}>SSL Info</li>
-                </ul>
-                <li>OSINT - Search Engines</li>
+                <li>Sensitive Data Leakage (Do this manually while recon scripts are running.  Based on methodology by thegentleman)</li>
                 <ul>
                     <li>GitHub</li>
                     <ul>
@@ -85,6 +82,7 @@ const Recon = props => {
                     <li>Shodan</li>
                     <li>Censys</li>
                 </ul>
+                <li>Add Target URL</li>
                 <li>Summary</li>
             </ul>
         </div>

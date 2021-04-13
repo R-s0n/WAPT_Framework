@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Modal from 'react-modal';
+import Dashboard from '../Components/Dashboard';
 import Recon from '../Components/Recon';
 import Enumeration from '../Components/Enumeration';
 
@@ -50,6 +51,11 @@ const Fqdn = props => {
                 </div>
             </div>
         </nav>
+        {
+            activeTab === 0 ?
+            <Dashboard thisFqdn={props.thisFqdn} /> :
+            ""
+        }
         {
             activeTab === 1 ?
             <Recon thisFqdn={props.thisFqdn} /> :

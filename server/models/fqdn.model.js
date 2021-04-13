@@ -59,30 +59,15 @@ const FqdnSchema = new mongoose.Schema({
                 type: String
             }],
             masscan : [{
-                ip: String,
-                timestamp: String,
-                ports: [{
-                    port: Number,
-                    proto: String,
-                    status: String,
-                    reason: String,
-                    ttl: Number
-                }]
+                type: String,
             }],
             masscanAdded : [{
                 type: String
             }],
             masscanRemoved : [{
                 type: String
-            }]
-        },
-        notableUrls: {
-            eyeWitness: [{
-                type: String
-            }]
-        },
-        subdomainTakeover: {
-            subjack: [{
+            }],
+            masscanLive : [{
                 type: String
             }]
         },
