@@ -43,6 +43,9 @@ const FqdnSchema = new mongoose.Schema({
             shuffledns : [{
                 type: String
             }],
+            cloudRanges : [{
+                type: String
+            }],
             consolidated : [{
                 type: String
             }],

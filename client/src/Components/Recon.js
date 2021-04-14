@@ -19,6 +19,8 @@ import GithubSubdomains from './SubComponents/GithubSubdomains';
 import GoSpider from './SubComponents/GoSpider';
 import Hakrawler from './SubComponents/Hakrawler';
 import SubDomainizer from './SubComponents/SubDomainizer';
+import CloudRanges from './SubComponents/CloudRanges';
+import Dnmasscan from './SubComponents/Dnmasscan';
 import '../Component.css';
 
 const Recon = props => {
@@ -40,31 +42,36 @@ const Recon = props => {
                         <li onClick={(e)=>setCurrentStep(5)}>Tools - Shosubgo</li>
                         <li onClick={(e)=>setCurrentStep(6)}>Tools - Subfinder</li>
                         <li onClick={(e)=>setCurrentStep(7)}>Tools - Github-Subdomains</li>
-                        <li>Cloud Ranges</li>
+                        <li onClick={(e)=>setCurrentStep(8)}>Placeholder</li>
                     </ul>
                     <li>Link / JS Discovery</li>
                     <ul>
-                        <li onClick={(e)=>setCurrentStep(8)}>Tool - GoSpider</li>
-                        <li onClick={(e)=>setCurrentStep(9)}>Tool - Hakrawler</li>
-                        <li onClick={(e)=>setCurrentStep(10)}>Tool - SubDomainizer</li>
+                        <li onClick={(e)=>setCurrentStep(9)}>Tool - GoSpider</li>
+                        <li onClick={(e)=>setCurrentStep(10)}>Tool - Hakrawler</li>
+                        <li onClick={(e)=>setCurrentStep(11)}>Tool - SubDomainizer</li>
                     </ul>
                     <li>Subdomain Bruteforcing</li>
                     <ul>
-                        <li onClick={(e)=>setCurrentStep(11)}>ShuffleDNS - Massive Wordlist</li>
-                        <li onClick={(e)=>setCurrentStep(12)}>Build Custom Wordlist</li>
-                        <li onClick={(e)=>setCurrentStep(13)}>ShuffleDNS - Custom Wordlist</li>
+                        <li onClick={(e)=>setCurrentStep(12)}>ShuffleDNS - Massive Wordlist</li>
+                        <li onClick={(e)=>setCurrentStep(13)}>Build Custom Wordlist</li>
+                        <li onClick={(e)=>setCurrentStep(14)}>ShuffleDNS - Custom Wordlist</li>
                     </ul>
                     <li>Final Analysis</li>
                     <ul>
-                        <li onClick={(e)=>setCurrentStep(14)}>Build List of Unique Subdomains</li>
-                        <li onClick={(e)=>setCurrentStep(15)}>Check SubDomain Status - Httpprobe</li>
-                        <li onClick={(e)=>setCurrentStep(16)}>Final Analysis - EyeWitness</li>
+                        <li onClick={(e)=>setCurrentStep(15)}>Build List of Unique Subdomains</li>
+                        <li onClick={(e)=>setCurrentStep(16)}>Check SubDomain Status - Httpprobe</li>
+                        <li onClick={(e)=>setCurrentStep(17)}>Final Analysis - EyeWitness</li>
                     </ul>
                     <li>Miscellaneous</li>
                     <ul>
-                        <li onClick={(e)=>setCurrentStep(17)}>Subdomain Takeover - Subjack</li>
-                        <li onClick={(e)=>setCurrentStep(18)}>Configure Slackbot</li>
+                        <li onClick={(e)=>setCurrentStep(18)}>Subdomain Takeover - Subjack</li>
+                        <li onClick={(e)=>setCurrentStep(19)}>Configure Slackbot</li>
                     </ul>
+                </ul>
+                <li>Server/Port Enumeration</li>
+                <ul>
+                    <li onClick={(e)=>setCurrentStep(20)}>Cloud Ranges</li>
+                    <li onClick={(e)=>setCurrentStep(21)}>Dnmasscan</li>
                 </ul>
                 <li>Sensitive Data Leakage (Do this manually while recon scripts are running.  Based on methodology by thegentleman)</li>
                 <ul>
@@ -127,47 +134,58 @@ const Recon = props => {
                 <ToastProvider><GithubSubdomains thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
+
             {
-                currentStep === 8 ?
+                currentStep === 9 ?
                 <ToastProvider><GoSpider thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
             {
-                currentStep === 9 ?
+                currentStep === 10 ?
                 <ToastProvider><Hakrawler thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
             {
-                currentStep === 10 ?
+                currentStep === 11 ?
                 <ToastProvider><SubDomainizer thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
             {
-                currentStep === 14 ?
+                currentStep === 15 ?
                 <ToastProvider><Consolidator thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
             {
-                currentStep === 15 ?
+                currentStep === 16 ?
                 <ToastProvider><Httprobe thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
             {
-                currentStep === 16 ?
+                currentStep === 17 ?
                 <ToastProvider><EyeWitness thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
             {
-                currentStep === 17 ?
+                currentStep === 18 ?
                 <ToastProvider><Subjack thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
             {
-                currentStep === 18 ?
+                currentStep === 19 ?
                 <ToastProvider><Slackbot thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
-                        {
+            {
+                currentStep === 20 ?
+                <ToastProvider><CloudRanges thisFqdn={props.thisFqdn} /></ToastProvider> :
+                ''
+            }
+            {
+                currentStep === 21 ?
+                <ToastProvider><Dnmasscan thisFqdn={props.thisFqdn} /></ToastProvider> :
+                ''
+            }
+            {
                 currentStep === 24 ?
                 <ToastProvider><GithubSearch thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
