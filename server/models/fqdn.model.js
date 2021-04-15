@@ -37,10 +37,10 @@ const FqdnSchema = new mongoose.Schema({
             githubSearch : [{
                 type: String
             }],
-            amassBrute : [{
+            shuffledns : [{
                 type: String
             }],
-            shuffledns : [{
+            shufflednsCustom : [{
                 type: String
             }],
             cloudRanges : [{
@@ -98,11 +98,6 @@ const FqdnSchema = new mongoose.Schema({
             }]
         }
     },
-    loot: {
-        highEntrophy: [{
-            type: String
-        }]
-    }
 }, {timestamps: true});
 
 module.exports.Fqdn = mongoose.model("Fqdn", FqdnSchema);

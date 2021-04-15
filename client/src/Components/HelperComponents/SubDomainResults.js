@@ -33,7 +33,7 @@ const SubDomainResults = props => {
                 {
                     props.subdomainList.map((subdomain, i)=>{
                         return (
-                            <p key={i} style={{marginBottom:'1px', marginLeft:'15px'}}><a href={'https://' + subdomain} target="_blank" rel="noreferrer">{subdomain}</a></p>
+                            <p key={i} style={{marginBottom:'1px', marginLeft:'15px'}}><a href={subdomain} target="_blank" rel="noreferrer">{subdomain}</a></p>
                         )
                     })
                 }

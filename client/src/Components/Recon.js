@@ -21,6 +21,10 @@ import Hakrawler from './SubComponents/Hakrawler';
 import SubDomainizer from './SubComponents/SubDomainizer';
 import CloudRanges from './SubComponents/CloudRanges';
 import Dnmasscan from './SubComponents/Dnmasscan';
+import ShuffleDnsMassive from './SubComponents/ShuffleDnsMassive';
+import ShuffleDnsCustom from './SubComponents/ShuffleDnsCustom';
+import CustomWordlist from './SubComponents/CustomWordlist';
+import FindWebServer from './SubComponents/FindWebServer';
 import '../Component.css';
 
 const Recon = props => {
@@ -42,7 +46,6 @@ const Recon = props => {
                         <li onClick={(e)=>setCurrentStep(5)}>Tools - Shosubgo</li>
                         <li onClick={(e)=>setCurrentStep(6)}>Tools - Subfinder</li>
                         <li onClick={(e)=>setCurrentStep(7)}>Tools - Github-Subdomains</li>
-                        <li onClick={(e)=>setCurrentStep(8)}>Placeholder</li>
                     </ul>
                     <li>Link / JS Discovery</li>
                     <ul>
@@ -72,6 +75,7 @@ const Recon = props => {
                 <ul>
                     <li onClick={(e)=>setCurrentStep(20)}>Cloud Ranges</li>
                     <li onClick={(e)=>setCurrentStep(21)}>Dnmasscan</li>
+                    <li onClick={(e)=>setCurrentStep(22)}>Identify Web Servers</li>
                 </ul>
                 <li>Sensitive Data Leakage (Do this manually while recon scripts are running.  Based on methodology by thegentleman)</li>
                 <ul>
@@ -151,6 +155,21 @@ const Recon = props => {
                 ''
             }
             {
+                currentStep === 12 ?
+                <ToastProvider><ShuffleDnsMassive thisFqdn={props.thisFqdn} /></ToastProvider> :
+                ''
+            }
+            {
+                currentStep === 13 ?
+                <ToastProvider><CustomWordlist thisFqdn={props.thisFqdn} /></ToastProvider> :
+                ''
+            }
+            {
+                currentStep === 14 ?
+                <ToastProvider><ShuffleDnsCustom thisFqdn={props.thisFqdn} /></ToastProvider> :
+                ''
+            }
+            {
                 currentStep === 15 ?
                 <ToastProvider><Consolidator thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
@@ -183,6 +202,11 @@ const Recon = props => {
             {
                 currentStep === 21 ?
                 <ToastProvider><Dnmasscan thisFqdn={props.thisFqdn} /></ToastProvider> :
+                ''
+            }
+            {
+                currentStep === 22 ?
+                <ToastProvider><FindWebServer thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
             {

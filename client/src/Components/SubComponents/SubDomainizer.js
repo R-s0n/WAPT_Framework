@@ -61,7 +61,7 @@ const SubDomainizer = props => {
                     <p><b>GOAL: </b>Identify valid sub-domains of the current FQDN to help build a complete picture of the application.</p>
                     <p><b>DOWNLOAD: </b><span onClick={copyToClipboard}>git clone https://github.com/nsonaniya2010/SubDomainizer.git</span></p>
                     <p><b>INSTALL: </b><span onClick={copyToClipboard}>pip3 install -r requirements.txt</span></p>
-                    <p><b>RUN: </b><span onClick={copyToClipboard}>python3 SubDomainizer.py -u https://www.example.com -o subdomainizer.{props.thisFqdn.fqdn}.txt; cat subdomainizer.{props.thisFqdn.fqdn}.txt | xclip -i -selection clipboard</span></p>                </div>
+                    <p><b>RUN: </b><span onClick={copyToClipboard}>python3 SubDomainizer.py -u {props.thisFqdn.fqdn} -o subdomainizer.{props.thisFqdn.fqdn}.txt; cat subdomainizer.{props.thisFqdn.fqdn}.txt | xclip -i -selection clipboard</span></p>                </div>
             </div>
             <div className="row">
                 {

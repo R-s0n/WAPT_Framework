@@ -76,10 +76,24 @@ const Dashboard = props => {
             </div>
             <div className="row ml-5 pl-5">
                 <div className="col-4">
-                    <h5>Server IPs Identified: {thisFqdn.recon.subdomains.masscan.length}</h5>
+                    <h5>Active Web Servers: {thisFqdn.recon.subdomains.masscanLive.length}</h5>
                     <div style={{width: '300px', height: '300px', padding: '5px', border: '1px solid black', overflowY: 'scroll'}}>
                         {
-                            thisFqdn.recon.subdomains.masscan.map((server, i) => {
+                            thisFqdn.recon.subdomains.masscanLive.map((server, i) => {
+                                return (
+                                    <>
+                                    <a href={server} key={i} className="m-0 mt-2" target="_blank" rel="noreferrer">{server}</a><br/>
+                                    </>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+                <div className="col-4">
+                    <h5>New Servers: {thisFqdn.recon.subdomains.masscanAdded.length}</h5>
+                    <div style={{width: '300px', height: '300px', padding: '5px', border: '1px solid black', overflowY: 'scroll'}}>
+                        {
+                            thisFqdn.recon.subdomains.masscanAdded.map((server, i) => {
                                 return (
                                     <>
                                     <a href={"http://"+server} key={i} className="m-0 mt-2" target="_blank" rel="noreferrer">{server}</a><br/>
