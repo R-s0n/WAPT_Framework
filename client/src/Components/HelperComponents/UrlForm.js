@@ -7,9 +7,10 @@ const UrlForm = props => {
     const [loaded, setLoaded] = useState(false);
 
     useEffect(()=>{
-        axios.post('http://localhost:8000/api/urllist', {fqdnId:props.thisFqdn._id})
+        axios.post('http://localhost:8000/api/fqdn', {_id:props.thisFqdn._id})
             .then(res=>{
-                setUrlList(res.data[props.thisScanner]);
+                console.log(res.data)
+                setUrlList(res.data.targetUrls);
                 setLoaded(true);
             })
             .catch(err=>console.log(err))
@@ -18,19 +19,23 @@ const UrlForm = props => {
     const handleSubmit = (e) => {
         e.preventDefault();
         let data = {};
-        let scanner = props.thisScanner;
         let currentUrls = urlList;
         currentUrls.push(url);
-        data["fqdnId"] = props.thisFqdn._id;
-        data[scanner] = currentUrls;
+        data["_id"] = props.thisFqdn._id;
+        data["targetUrls"] = currentUrls;
         console.log(data);
-        axios.post('http://localhost:8000/api/urllist/update', data)
+        axios.post('http://localhost:8000/api/fqdn/update', data)
             .then(res=>{
-                console.log(res.data);
-                setLoaded(false);
-                setUrl("");
-                setUrlList(currentUrls);
-                setLoaded(true);
+                let newUrl = url;
+                axios.post('http://localhost:8000/api/url/new', {url:newUrl, fqdn:props.thisFqdn.fqdn})
+                    .then(res=>{
+                        console.log(res.data);
+                        setLoaded(false);
+                        setUrl("");
+                        setUrlList(currentUrls);
+                        setLoaded(true);
+                    })
+                    .catch(err=>console.log(err));
             })
             .catch(err=>console.log(err));
     }
@@ -38,19 +43,26 @@ const UrlForm = props => {
     const deleteUrl = (index) => {
         setLoaded(false);
         let data = {};
-        let scanner = props.thisScanner;
+        let urlToDelete = urlList.filter((url, i) => {
+            return i === index
+        });
         let currentUrls = urlList.filter((url, i) => {
             return i !== index
         });
-        data["fqdnId"] = props.thisFqdn._id;
-        data[scanner] = currentUrls;
+        data["_id"] = props.thisFqdn._id;
+        data["targetUrls"] = currentUrls;
         console.log(data);
-        axios.post('http://localhost:8000/api/urllist/update', data)
+        axios.post('http://localhost:8000/api/fqdn/update', data)
             .then(res=>{
-                setUrlList(currentUrls)
-                console.log(res);
-                setLoaded(true);
+                axios.post('http://localhost:8000/api/url/auto/delete', {url: urlToDelete})
+                    .then(res=>{
+                        setUrlList(currentUrls)
+                        console.log(res);
+                        setLoaded(true);
+                    })
+                    .catch(err=>console.log(err));
             })
+            .catch(err=>console.log(err));
     }
 
     return (
@@ -60,7 +72,7 @@ const UrlForm = props => {
                         {
                             loaded && urlList.map((url, i)=>{
                                 return(
-                                    <p key={i}><button className="btn btn-primary" onClick={(e)=>deleteUrl(i)}>Delete</button>{url}</p>
+                                    <p key={i}><button className="btn btn-primary mr-4" onClick={(e)=>deleteUrl(i)}>Delete</button>{url}</p>
                                 )
                             })
                         }
@@ -69,8 +81,8 @@ const UrlForm = props => {
                 <div className="col-12 mt-3 ml-5">
                     <form onSubmit={handleSubmit}>
                     <div className="col-10">
-                        <label htmlFor="notableUrl" className="form-label">Notable URL</label>
-                        <input value={url} type="text" className="form-control" id="notableUrl" aria-describedby="notableUrlSubtext" onChange={(e)=>setUrl(e.target.value)} />
+                        <label htmlFor="targetUrl" className="form-label">Target URL</label>
+                        <input value={url} type="text" className="form-control" id="targetUrl" aria-describedby="targetUrlSubtext" onChange={(e)=>setUrl(e.target.value)} />
                     </div>
                     <div className="col-2 mt-2">
                         <button type="submit" className="btn btn-primary">Submit</button>

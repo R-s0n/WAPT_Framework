@@ -1,13 +1,9 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import '../Component.css';
 
 const Dashboard = props => {
     const thisFqdn = props.thisFqdn;
     const formatUpdated = thisFqdn.updatedAt.replace(/([A-Z])+/g, " ").replace(/(\.[0-9]+)/g, " GMT");
-
-    useEffect(()=>{
-        console.log(thisFqdn);
-    }, [])
     
     return (
         <div className="bg-secondary dashboard">
@@ -81,9 +77,9 @@ const Dashboard = props => {
                         {
                             thisFqdn.recon.subdomains.masscanLive.map((server, i) => {
                                 return (
-                                    <>
-                                    <a href={server} key={i} className="m-0 mt-2" target="_blank" rel="noreferrer">{server}</a><br/>
-                                    </>
+                                    <div key={i}>
+                                    <a href={server} className="m-0 mt-2" target="_blank" rel="noreferrer">{server}</a><br/>
+                                    </div>
                                 )
                             })
                         }
@@ -95,9 +91,9 @@ const Dashboard = props => {
                         {
                             thisFqdn.recon.subdomains.masscanAdded.map((server, i) => {
                                 return (
-                                    <>
-                                    <a href={"http://"+server} key={i} className="m-0 mt-2" target="_blank" rel="noreferrer">{server}</a><br/>
-                                    </>
+                                    <div key={i}>
+                                    <a href={"http://"+server} className="m-0 mt-2" target="_blank" rel="noreferrer">{server}</a><br/>
+                                    </div>
                                 )
                             })
                         }

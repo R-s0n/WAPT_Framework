@@ -5,7 +5,6 @@ import axios from 'axios';
 const Consolidator = props => {
     const [consolidatedList, setConsolidatedList] = useState([]);
     const [consolidatedNewList, setConsolidatedNewList] = useState([]);
-    const [deltaList, setDeltaList] = useState([])
     const [loaded, setLoaded] = useState(false);
     const [refresh, setRefresh] = useState(0);
 

@@ -98,6 +98,9 @@ const FqdnSchema = new mongoose.Schema({
             }]
         }
     },
+    targetUrls: [{
+        type: String
+    }]
 }, {timestamps: true});
 
 module.exports.Fqdn = mongoose.model("Fqdn", FqdnSchema);

@@ -57,14 +57,13 @@ const FindWebServer = props => {
         <div className="container mt-5">
             <div className="row">
                 <div className="col-12">
-                    <p><b>DETAILS: </b></p>
-                    <p><b>GOAL: </b></p>
-                    <p><b>DOWNLOAD: </b><span onClick={copyToClipboard}></span></p>
-                    <p><b>INSTALL: </b><span onClick={copyToClipboard}></span></p>
-                    <p><b>RUN: </b><span onClick={copyToClipboard}></span></p>
+                    <p><b>DETAILS: </b>This tool pulls the dnmasscan results from the WAPT Framework and checks each server/port combination to find any that are actively running web servers.</p>
+                    <p><b>GOAL: </b>Identify hidden/obfuscated web servers that can potentially be exploited.</p>
+                    <p><b>DOWNLOAD/INSTALL: </b><span onClick={copyToClipboard}>git clone https://github.com/R-s0n/Fire_Spreader.git</span></p>
+                    <p><b>RUN: </b><span onClick={copyToClipboard}>python3 wind.py -d {props.thisFqdn.fqdn}</span></p>
                 </div>
             </div>
-            <div className="row">
+            <div className="row mt-3">
                 {
                     loaded && formCompleted === false ?
                     <SubDomainForm thisFqdn={props.thisFqdn} thisScanner="masscanLive" formFunction={addFindWebServerData}/> :

@@ -25,6 +25,7 @@ import ShuffleDnsMassive from './SubComponents/ShuffleDnsMassive';
 import ShuffleDnsCustom from './SubComponents/ShuffleDnsCustom';
 import CustomWordlist from './SubComponents/CustomWordlist';
 import FindWebServer from './SubComponents/FindWebServer';
+import AddTargetUrl from './SubComponents/AddTargetUrl';
 import '../Component.css';
 
 const Recon = props => {
@@ -93,7 +94,7 @@ const Recon = props => {
                     <li>Shodan</li>
                     <li>Censys</li>
                 </ul>
-                <li>Add Target URL</li>
+                <li onClick={(e)=>setCurrentStep(45)}>Add Target URL</li>
                 <li>Summary</li>
             </ul>
         </div>
@@ -219,9 +220,14 @@ const Recon = props => {
                 <ToastProvider><GithubOsint thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
-                        {
+            {
                 currentStep === 26 ?
                 <ToastProvider><GithubBruteDork thisFqdn={props.thisFqdn} /></ToastProvider> :
+                ''
+            }
+            {
+                currentStep === 45 ?
+                <AddTargetUrl thisFqdn={props.thisFqdn} /> :
                 ''
             }
         </div>

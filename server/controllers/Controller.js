@@ -1,9 +1,11 @@
 const { Fqdn } = require("../models/fqdn.model");
-
+const { Url } = require("../models/url.model");
 
 module.exports.ping = (req, res) => {
     res.json({ message: "pong" });
 }
+
+// Fqdn Controllers
 
 module.exports.addFqdn = (req, res) => {
     Fqdn.create(req.body)
@@ -50,5 +52,61 @@ module.exports.autoUpdateFqdn = (req, res) => {
         req.body,
         { new: true, runValidators: true })
         .then(result=>res.json(result))
+        .catch(err=>res.status(400).json(err))
+}
+
+// Url Controllers
+
+module.exports.addUrl = (req, res) => {
+    Url.create(req.body)
+        .then(newUrl=>res.json(newUrl))
+        .catch(err=>res.status(400).json(err))
+}
+
+module.exports.getUrls = (req, res) => {
+    Url.find()
+        .then(urls=>res.json(urls))
+        .catch(err=>res.status(400).json(err))
+}
+
+module.exports.getUrl = (req, res) => {
+    Url.findOne({ _id: req.body._id })
+        .then(oneUrl=>res.json(oneUrl))
+        .catch(err=>res.status(400).json(err))
+}
+
+module.exports.deleteUrl = (req, res) => {
+    Url.deleteOne({ _id: req.body._id })
+        .then(result=>res.json({success:true}))
+        .catch(err=>res.status(400).json(err))
+}
+
+module.exports.updateUrl = (req, res) => {
+    Url.findOneAndUpdate(
+        { _id: req.body._id },
+        req.body,
+        { new: true, runValidators: true })
+        .then(result=>res.json(result))
+        .catch(err=>res.status(400).json(err))
+}
+
+module.exports.autoGetUrl = (req, res) => {
+    Url.findOne({ url: req.body.url })
+        .then(oneUrl=>res.json(oneUrl))
+        .catch(err=>res.status(400).json(err))
+}
+
+module.exports.autoUpdateUrl = (req, res) => {
+    Url.findOneAndUpdate(
+        { url: req.body.url },
+        req.body,
+        { new: true, runValidators: true })
+        .then(result=>res.json(result))
+        .catch(err=>res.status(400).json(err))
+}
+
+module.exports.autoDeleteUrl = (req, res) => {
+    Url.deleteOne({ url: req.body.url })
+        .then(result=>res.json({success:true}))
         .catch(err=>res.status(400).json(err))
 }

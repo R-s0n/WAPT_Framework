@@ -9,4 +9,13 @@ module.exports = function(app){
     app.post('/api/fqdn/update', Controller.updateFqdn);
     app.post('/api/auto', Controller.autoGetFqdn);
     app.post('/api/auto/update', Controller.autoUpdateFqdn);
+
+    app.post('/api/url', Controller.getUrl);
+    app.post('/api/url/all', Controller.getUrls);
+    app.post('/api/url/new', Controller.addUrl);
+    app.post('/api/url/delete', Controller.deleteUrl);
+    app.post('/api/url/update', Controller.updateUrl);
+    app.post('/api/url/auto', Controller.autoGetUrl);
+    app.post('/api/url/auto/update', Controller.autoUpdateUrl);
+    app.post('/api/url/auto/delete', Controller.autoDeleteUrl);
 }
