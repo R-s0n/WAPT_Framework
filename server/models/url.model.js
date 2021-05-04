@@ -6,7 +6,28 @@ const UrlSchema = new mongoose.Schema({
     endpoints: [{
         endpoint: String,
         statusCode: Number,
-        responseLength: Number
+        responseLength: Number,
+        arjun: {
+            method: String,
+            params: [{
+                type: String
+            }]
+        },
+        arjunPost: {
+            method: String,
+            params: [{
+                type: String
+            }]
+        },
+        arjunJson: {
+            method: String,
+            params: [{
+                type: String
+            }]
+        }
+    }],
+    completedWordlists: [{
+        type: String
     }],
 }, {timestamps: true});
 
