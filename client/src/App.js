@@ -69,8 +69,8 @@ function App() {
             fqdns.map((fqdn, i) => {return (
               <li className="mr-3 nav-item" key={i}>
                 { i === activeTab ?
-                <button style={{width: '145px'}} className="border border-info nav-link btn btn-primary text-secondary active" aria-current="page" href="#">{fqdn.fqdn}</button> :
-                <button style={{width: '145px'}} className="border border-info nav-link btn btn-primary text-secondary" onClick={()=>setActiveTab(i)}aria-current="page" href="#">{fqdn.fqdn}</button>
+                <button className="border border-info nav-link btn btn-primary text-secondary active" aria-current="page" href="#">{fqdn.fqdn}</button> :
+                <button className="border border-info nav-link btn btn-primary text-secondary" onClick={()=>setActiveTab(i)}aria-current="page" href="#">{fqdn.fqdn}</button>
                 }
                 </li>
             )})
