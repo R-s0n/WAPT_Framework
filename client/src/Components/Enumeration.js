@@ -42,7 +42,30 @@ const Enumeration = props => {
             <ul style={{listStyleType: "none"}}>
             {
                 loaded && urlData.endpoints.map((endpoint, i) => { return (
-                    <li key={i}>{endpoint.endpoint}</li>
+                    <>
+                    <li key={i}><a href={urlData.url + endpoint.endpoint} target="_blank" rel="noreferrer">{endpoint.endpoint}</a></li>
+                    <ul style={{listStyleType: "none"}}>
+                    {
+                        endpoint.arjun.params.map((param, j) => { return (
+                            <li key={j}>GET --   {param}</li>
+                        )})
+                    }
+                    </ul>
+                    <ul style={{listStyleType: "none"}}>
+                    {
+                        endpoint.arjunPost.params.map((param, j) => { return (
+                            <li key={j}>POST --   {param}</li>
+                        )})
+                    }
+                    </ul>
+                    <ul style={{listStyleType: "none"}}>
+                    {
+                        endpoint.arjunJson.params.map((param, j) => { return (
+                            <li key={j}>JSON --   {param}</li>
+                        )})
+                    }
+                    </ul>
+                    </>
                 )})
             }        
             </ul>

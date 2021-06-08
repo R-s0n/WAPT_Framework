@@ -17,8 +17,8 @@ const Fqdn = props => {
         "Injection Testing",
         "Logic Testing",
         "Creative Testing",
+        "White-box",
         "Resources",
-        "Vulnerabilities",
         "Notes",
         "Report"
     ]
