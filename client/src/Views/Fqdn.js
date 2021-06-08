@@ -63,7 +63,7 @@ const Fqdn = props => {
         }
         {
             activeTab === 2 ?
-            <Enumeration /> :
+            <Enumeration thisFqdn={props.thisFqdn} /> :
             ""
         }
         </>
