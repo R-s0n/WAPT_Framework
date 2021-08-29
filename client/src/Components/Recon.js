@@ -7,12 +7,7 @@ import Gau from './SubComponents/Gau';
 import Ctl from './SubComponents/Ctl';
 import Consolidator from './SubComponents/Consolidator';
 import Httprobe from './SubComponents/Httprobe';
-import Slackbot from './SubComponents/Slackbot';
-import Subjack from './SubComponents/Subjack';
 import EyeWitness from './SubComponents/EyeWitness';
-import GithubOsint from './SubComponents/GithubOsint';
-import GithubSearch from './SubComponents/GithubSearch';
-import GithubBruteDork from './SubComponents/GithubBruteDork';
 import Shosubgo from './SubComponents/Shosubgo';
 import Subfinder from './SubComponents/Subfinder';
 import GithubSubdomains from './SubComponents/GithubSubdomains';
@@ -60,41 +55,20 @@ const Recon = props => {
                         <li onClick={(e)=>setCurrentStep(13)}>Build Custom Wordlist</li>
                         <li onClick={(e)=>setCurrentStep(14)}>ShuffleDNS - Custom Wordlist</li>
                     </ul>
-                    <li>Final Analysis</li>
+                    <li>Server/Port Enumeration</li>
                     <ul>
-                        <li onClick={(e)=>setCurrentStep(15)}>Build List of Unique Subdomains</li>
-                        <li onClick={(e)=>setCurrentStep(16)}>Check SubDomain Status - Httpprobe</li>
-                        <li onClick={(e)=>setCurrentStep(17)}>Final Analysis - EyeWitness</li>
-                    </ul>
-                    <li>Miscellaneous</li>
-                    <ul>
-                        <li onClick={(e)=>setCurrentStep(18)}>Subdomain Takeover - Subjack</li>
-                        <li onClick={(e)=>setCurrentStep(19)}>Configure Slackbot</li>
+                        <li onClick={(e)=>setCurrentStep(15)}>Cloud Ranges</li>
+                        <li onClick={(e)=>setCurrentStep(16)}>Dnmasscan</li>
+                        <li onClick={(e)=>setCurrentStep(17)}>Identify Web Servers</li>
                     </ul>
                 </ul>
-                <li>Server/Port Enumeration</li>
+                <li>Final Analysis</li>
                 <ul>
-                    <li onClick={(e)=>setCurrentStep(20)}>Cloud Ranges</li>
-                    <li onClick={(e)=>setCurrentStep(21)}>Dnmasscan</li>
-                    <li onClick={(e)=>setCurrentStep(22)}>Identify Web Servers</li>
+                    <li onClick={(e)=>setCurrentStep(18)}>Build List of Unique Subdomains</li>
+                    <li onClick={(e)=>setCurrentStep(19)}>Check SubDomain Status - Httpprobe</li>
+                    <li onClick={(e)=>setCurrentStep(20)}>Final Analysis - EyeWitness</li>
                 </ul>
-                <li>Sensitive Data Leakage (Do this manually while recon scripts are running.  Based on methodology by thegentleman)</li>
-                <ul>
-                    <li>GitHub</li>
-                    <ul>
-                        <li onClick={(e)=>setCurrentStep(24)}>Automated - Github-search</li>
-                        <li onClick={(e)=>setCurrentStep(25)}>Manual Search - Languages</li>
-                        <li onClick={(e)=>setCurrentStep(26)}>Automated - Github_Brute-Dork</li>
-                        <li onClick={(e)=>setCurrentStep(27)}>Manual Search - Users</li>
-                        <li onClick={(e)=>setCurrentStep(28)}>Automated - Gitrob</li>
-                        <li onClick={(e)=>setCurrentStep(29)}>Automated - Github-search (Round Two)</li>
-                        <li onClick={(e)=>setCurrentStep(30)}>Manual Search - Creative</li>
-                    </ul>
-                    <li>Google</li>
-                    <li>Shodan</li>
-                    <li>Censys</li>
-                </ul>
-                <li onClick={(e)=>setCurrentStep(45)}>Add Target URL</li>
+                <li onClick={(e)=>setCurrentStep(21)}>Add Target URL</li>
                 <li>Summary</li>
             </ul>
         </div>
@@ -172,61 +146,36 @@ const Recon = props => {
             }
             {
                 currentStep === 15 ?
-                <ToastProvider><Consolidator thisFqdn={props.thisFqdn} /></ToastProvider> :
-                ''
-            }
-            {
-                currentStep === 16 ?
-                <ToastProvider><Httprobe thisFqdn={props.thisFqdn} /></ToastProvider> :
-                ''
-            }
-            {
-                currentStep === 17 ?
-                <ToastProvider><EyeWitness thisFqdn={props.thisFqdn} /></ToastProvider> :
-                ''
-            }
-            {
-                currentStep === 18 ?
-                <ToastProvider><Subjack thisFqdn={props.thisFqdn} /></ToastProvider> :
-                ''
-            }
-            {
-                currentStep === 19 ?
-                <ToastProvider><Slackbot thisFqdn={props.thisFqdn} /></ToastProvider> :
-                ''
-            }
-            {
-                currentStep === 20 ?
                 <ToastProvider><CloudRanges thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
             {
-                currentStep === 21 ?
+                currentStep === 16 ?
                 <ToastProvider><Dnmasscan thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
             {
-                currentStep === 22 ?
+                currentStep === 17 ?
                 <ToastProvider><FindWebServer thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
             {
-                currentStep === 24 ?
-                <ToastProvider><GithubSearch thisFqdn={props.thisFqdn} /></ToastProvider> :
+                currentStep === 18 ?
+                <ToastProvider><Consolidator thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
             {
-                currentStep === 25 ?
-                <ToastProvider><GithubOsint thisFqdn={props.thisFqdn} /></ToastProvider> :
+                currentStep === 19 ?
+                <ToastProvider><Httprobe thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
             {
-                currentStep === 26 ?
-                <ToastProvider><GithubBruteDork thisFqdn={props.thisFqdn} /></ToastProvider> :
+                currentStep === 20 ?
+                <ToastProvider><EyeWitness thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
             {
-                currentStep === 45 ?
+                currentStep === 21 ?
                 <AddTargetUrl thisFqdn={props.thisFqdn} /> :
                 ''
             }

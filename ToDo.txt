@@ -1,0 +1,45 @@
+- Only 7 FQDNs at once
+- Only 1 Target URL per FQDN
+- 
+- Put this somewhere else:
+                <li>Sensitive Data Leakage (Do this manually while recon scripts are running.  Based on methodology by thegentleman)</li>
+                <ul>
+                    <li>GitHub</li>
+                    <ul>
+                        <li onClick={(e)=>setCurrentStep(24)}>Automated - Github-search</li>
+                        <li onClick={(e)=>setCurrentStep(25)}>Manual Search - Languages</li>
+                        <li onClick={(e)=>setCurrentStep(26)}>Automated - Github_Brute-Dork</li>
+                        <li onClick={(e)=>setCurrentStep(27)}>Manual Search - Users</li>
+                        <li onClick={(e)=>setCurrentStep(28)}>Automated - Gitrob</li>
+                        <li onClick={(e)=>setCurrentStep(29)}>Automated - Github-search (Round Two)</li>
+                        <li onClick={(e)=>setCurrentStep(30)}>Manual Search - Creative</li>
+                    </ul>
+                    <li>Google</li>
+                    <li>Shodan</li>
+                    <li>Censys</li>
+                </ul>
+                    <li>Miscellaneous</li>
+                    <ul>
+                        <li onClick={(e)=>setCurrentStep(18)}>Subdomain Takeover - Subjack</li>
+                        <li onClick={(e)=>setCurrentStep(19)}>Configure Slackbot</li>
+                    </ul>
+
+- If you need this:
+        <nav style={{borderBottom: '2px groove #284B63'}} className="pl-2 navbar navbar-expand-lg bg-primary">
+            <div className="container-fluid">
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul className="navbar-nav me-auto mb-lg-0">
+                        {
+                        urls.map((tab, i) => {return (
+                            <li className="mr-3 nav-item" key={i}>
+                            { i === activeEndpointTab ?
+                            <button className="border border-info nav-link btn btn-primary text-secondary active" aria-current="page" href="#">{tab}</button> :
+                            <button className="border border-info nav-link btn btn-primary text-secondary" onClick={()=>setActiveEndpointTab(i)}aria-current="page" href="#">{tab}</button>
+                            }
+                            </li>
+                        )})
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>

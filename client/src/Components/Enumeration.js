@@ -24,16 +24,7 @@ const Enumeration = props => {
             <div className="container-fluid">
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-lg-0">
-                        {
-                        urls.map((tab, i) => {return (
-                            <li className="mr-3 nav-item" key={i}>
-                            { i === activeEndpointTab ?
-                            <button className="border border-info nav-link btn btn-primary text-secondary active" aria-current="page" href="#">{tab}</button> :
-                            <button className="border border-info nav-link btn btn-primary text-secondary" onClick={()=>setActiveEndpointTab(i)}aria-current="page" href="#">{tab}</button>
-                            }
-                            </li>
-                        )})
-                        }
+                        <h5 className="text-secondary ml-4">Target URL : &nbsp;&nbsp;{urls[0]}</h5>
                     </ul>
                 </div>
             </div>
