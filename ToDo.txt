@@ -1,6 +1,8 @@
-- Only 7 FQDNs at once
+- Build section to add CVEs
+- Names: Wildfire Framework & Wildfire Toolkit
 - Only 1 Target URL per FQDN
-- 
+- clear_sky.py to find seeds/roots for DoD -- Search for *.gov
+- http://webscantest.com/crosstraining/aboutyou.php?fname=%3Cscript%3Evar%20rs0n=%27wuzhere%27%3C/script%3E (XSS Check)
 - Put this somewhere else:
                 <li>Sensitive Data Leakage (Do this manually while recon scripts are running.  Based on methodology by thegentleman)</li>
                 <ul>

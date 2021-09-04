@@ -46,7 +46,7 @@ function App() {
   Modal.setAppElement('#root');
 
   return (
-    <>
+    <div>
     { loaded && <Modal 
                   isOpen={noFqdns}
                   style={{
@@ -61,7 +61,7 @@ function App() {
                   }}>
       <AddFqdnModal fqdns={fqdns} setFqdns={setFqdns} setNoFqdns={setNoFqdns} />
     </Modal> }
-    <nav className="p-1 pt-2 pb-2 navbar navbar-expand-lg bg-dark">
+    <nav className="p-1 pt-2 pb-2 navbar navbar-expand-lg bg-dark" style={{overflow:'auto',whiteSpace:'nowrap'}} id="style-1">
       <div className="container-fluid">
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
@@ -81,7 +81,7 @@ function App() {
       </div>
     </nav>
     {noFqdns === false && <Fqdn index={activeTab} thisFqdn={fqdns[activeTab]} buttonFunction={deleteFqdn} setActiveTab={setActiveTab} />}
-    </>
+    </div>
   );
 }
 
