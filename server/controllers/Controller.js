@@ -1,8 +1,23 @@
 const { Fqdn } = require("../models/fqdn.model");
 const { Url } = require("../models/url.model");
+const { Cve } = require("../models/cve.model")
 
 module.exports.ping = (req, res) => {
     res.json({ message: "pong" });
+}
+
+// CVE Controllers
+
+module.exports.addCve = (req, res) => {
+    Cve.create(req.body)
+        .then(newCve=>res.json(newCve))
+        .catch(err=>res.status(400).json(err))
+}
+
+module.exports.getCves = (req, res) => {
+    Cve.find()
+        .then(Cves=>res.json(Cves))
+        .catch(err=>res.status(400).json(err))
 }
 
 // Fqdn Controllers
