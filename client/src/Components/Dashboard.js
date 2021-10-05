@@ -7,12 +7,17 @@ const Dashboard = props => {
     
     return (
         <div className="bg-secondary dashboard">
-            <div className="row ml-5 pl-5">
-                <div className="col-6 mb-3">
-                    <h2>FQDN: {thisFqdn.fqdn}</h2>
+            <div className="row pl-5">
+                <div className="col-4 mb-4">
+                    <h4>FQDN: {thisFqdn.fqdn}</h4>
                 </div>
-                <div className="col-6 mb-3">
-                    <h3>Data Last Updated: {formatUpdated}</h3>
+                <div className="col-4 mb-4">
+                    {
+                        thisFqdn.targetUrls.length > 0 ? <h4>Target URL: {thisFqdn.targetUrls[0]}</h4> : <h4>Target URL: None</h4>
+                    }
+                </div>
+                <div className="col-4 mb-4">
+                    <h4>Data Last Updated: {formatUpdated}</h4>
                 </div>
             </div>
             <div className="row ml-5 pl-5">

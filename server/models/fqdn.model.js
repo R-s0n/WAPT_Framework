@@ -98,6 +98,28 @@ const FqdnSchema = new mongoose.Schema({
             }]
         }
     },
+    vulns: [{
+        host: {type: String},
+        info: {
+            author: [{
+                type: String
+            }],
+            description: {type: String},
+            name: {type: String},
+            reference: [{
+                type: String
+            }],
+            severity: {type: String},
+            tags: [{
+                type: String
+            }]
+        },
+        ip: {type: String},
+        matched: {type: String},
+        templateId: {type: String},
+        timestamp: {type: String},
+        type: {type: String},
+    }],
     targetUrls: [{
         type: String
     }]

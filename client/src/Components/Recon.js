@@ -28,7 +28,7 @@ const Recon = props => {
 
     return (
         <>
-        <div className="bg-secondary checklistStyle pt-4 ml-0">
+        <div className="bg-secondary checklistStyle pt-4 ml-4">
             <ul>
                 <li>Subdomain Enumeration</li>
                 <ul>

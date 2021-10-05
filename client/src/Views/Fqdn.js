@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Modal from 'react-modal';
 import Dashboard from '../Components/Dashboard';
+import CveTesting from '../Components/CveTesting';
 import Recon from '../Components/Recon';
 import Enumeration from '../Components/Enumeration';
 
@@ -14,12 +15,12 @@ const Fqdn = props => {
         "Recon",
         "CVE Testing",
         "Enumeration",
+        "DAST Testing",
         "Auth Testing",
         "Injection Testing",
         "Logic Testing",
         "Creative Testing",
         "White-box",
-        "Notes",
         "Report"
     ]
 
@@ -59,6 +60,11 @@ const Fqdn = props => {
         {
             activeTab === 1 ?
             <Recon thisFqdn={props.thisFqdn} /> :
+            ""
+        }
+        {
+            activeTab === 2 ?
+            <CveTesting thisFqdn={props.thisFqdn} /> :
             ""
         }
         {

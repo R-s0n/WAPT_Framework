@@ -20,6 +20,12 @@ module.exports.getCves = (req, res) => {
         .catch(err=>res.status(400).json(err))
 }
 
+module.exports.deleteCve = (req, res) => {
+    Cve.deleteOne({ cve: req.body.cve })
+        .then(result=>res.json({success:true}))
+        .catch(err=>res.status(400).json(err))
+}
+
 // Fqdn Controllers
 
 module.exports.addFqdn = (req, res) => {

@@ -5,6 +5,7 @@ module.exports = function(app){
 
     app.post('/api/cve/all', Controller.getCves);
     app.post('/api/cve/new', Controller.addCve);
+    app.post('/api/cve/delete', Controller.deleteCve);
 
     app.post('/api/fqdn', Controller.getFqdn);
     app.post('/api/fqdn/all', Controller.getFqdns);

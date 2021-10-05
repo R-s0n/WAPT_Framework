@@ -12,7 +12,13 @@ const Enumeration = props => {
         setLoaded(false);
         axios.post('http://localhost:8000/api/url/auto', {url:props.thisFqdn.targetUrls[activeEndpointTab]})
         .then(res=>{
-            setUrlData(res.data);
+            if (res.data){
+                setUrlData(res.data);
+            } else {
+                setUrlData({
+                    "endpoints": []
+                })
+            }
             setLoaded(true);
         })
         .catch(err=>console.log(err))
@@ -32,6 +38,7 @@ const Enumeration = props => {
         <div className="bg-secondary checklistStyle">
             <ul style={{listStyleType: "none"}}>
             {
+                
                 loaded && urlData.endpoints.map((endpoint, i) => { return (
                     <>
                     <li key={i}><a href={urlData.url + endpoint.endpoint} target="_blank" rel="noreferrer">{endpoint.endpoint}</a></li>
