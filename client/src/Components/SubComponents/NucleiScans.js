@@ -5,10 +5,11 @@ import SubDomainForm from '../HelperComponents/SubDomainForm';
 import SubDomainResults from '../HelperComponents/SubDomainResults';
 
 
-const Sublist3r = props => {
+const NucleiScans = props => {
     const [formCompleted, setFormCompleted] = useState(false);
-    const [subdomainList, setSubdomainList] = useState([])
+    const [vulnList, setVulnList] = useState([]);
     const [loaded, setLoaded] = useState(false);
+    const [currentVuln, setCurrentVuln] = useState(0);
 
     const {addToast} = useToasts()
 
@@ -17,51 +18,84 @@ const Sublist3r = props => {
         axios.post('http://localhost:8000/api/fqdn', {_id:props.thisFqdn._id})
             .then(res=>{
                 if (res.data !== null){
-                    const tempArr = res.data.recon.subdomains.sublist3r;
+                    const tempArr = res.data.vulns;
                     if (tempArr.length > 0){
-                        setSubdomainList(res.data.recon.subdomains.sublist3r)
+                        setVulnList(res.data.vulns)
                         setFormCompleted(true);
                     }
                 }
                 setLoaded(true);
             })
     }, [props])
-    
-    const copyToClipboard = e => {
-        navigator.clipboard.writeText(e.target.innerText)
-        addToast(`Copied "${e.target.innerText}" to Clipboard`, {appearance:'info',autoDismiss:true});
-    }
 
-    const addSublist3rData = (list) => {
-        const tempFqdn = props.thisFqdn;
-        tempFqdn.recon.subdomains.sublist3r = list.split("\n");
-        axios.post('http://localhost:8000/api/fqdn/update', tempFqdn)
-            .then(res=>{
-                setSubdomainList(res.data.recon.subdomains.sublist3r)
-                setFormCompleted(true);
-            })
-            .catch(err=>console.log(err));
-    }
-
-    const deleteSublist3rData = () => {
+    const deleteVuln = () => {
         const tempFqdn = props.thisFqdn;
         tempFqdn.recon.subdomains.sublist3r = [];
         axios.post('http://localhost:8000/api/fqdn/update', tempFqdn)
             .then(res=>{
-                setSubdomainList(res.data.recon.subdomains.sublist3r)
+                setVulnList(res.data.recon.subdomains.sublist3r)
                 setFormCompleted(false);
             })
     }
 
     return (
-        <div className="container mt-5">
-            <div className="row">
-                <div className="col-2">
-                    <p>Vuln</p>
+        <div className="container mt-3 pl-0 ml-0">
+            <div className="row" style={{width:'1400px'}}>
+                <div className="col-3" style={{height:'750px', overflowY:'scroll'}}>
+                    <ul>
+                    {
+                        vulnList.map((vuln, i)=>{
+                            return (
+                                <li key={i} style={{listStyleType:"none"}} onClick={(e)=>setCurrentVuln(i)}>{vuln.info.name}</li>
+                            )
+                        })
+                    }
+                    </ul>
+                </div>
+                <div className="col-9" style={{height:'750px', overflowY:'scroll'}}>
+                    <ul>
+                    {
+                        vulnList.filter(vuln => vulnList.indexOf(vuln) === currentVuln).map(filteredVuln => (
+                            <>
+                            <p><b>Name:</b> {filteredVuln.info.name}</p>
+                            <p><b>Template ID:</b> {filteredVuln.templateID}</p>
+                            <p><b>Tags:</b> {filteredVuln.info.tags.length > 0 ? filteredVuln.info.tags.map((tag) => <>{tag}&nbsp;&nbsp;</>) : <>No Tags</>}</p>
+                            <p><b>Severity:</b> {filteredVuln.info.severity}</p>
+                            <p><b>Description:</b> {filteredVuln.info.description}</p>
+                            <p><b>Host:</b> <a href={filteredVuln.host}  target="_blank" rel="noreferrer">{filteredVuln.host}</a></p>
+                            <p><b>Matched:</b> <a href={filteredVuln.matched}  target="_blank" rel="noreferrer">{filteredVuln.matched}</a></p>
+                            <p><b>IP:</b> {filteredVuln.ip}</p>
+                            <p><b>Extracted Results:</b> 
+                            <ul>
+                            {
+                                filteredVuln.extracted_results && filteredVuln.extracted_results.length > 0 ? filteredVuln.extracted_results.map((result, i)=>{
+                                    return (
+                                        <li key={i} style={{listStyleType:"none"}}>{result}</li>
+                                    )
+                                }) : <p>No Extracted Results</p>
+                            }
+                            </ul>   
+                            </p>
+                            <p><b>References:</b> 
+                            <ul>
+                            {
+                                filteredVuln.info.reference && filteredVuln.info.reference.length > 0 ? filteredVuln.info.reference.map((reference, i)=>{
+                                    return (
+                                        <li key={i} style={{listStyleType:"none"}}><a href={reference}  target="_blank" rel="noreferrer">{reference}</a></li>
+                                    )
+                                }) : <p>No References</p>
+                            }
+                            </ul>   
+                            </p>
+                            <p><b>Discovered:</b> {filteredVuln.timestamp}</p>
+                            </>
+                        ))
+                    }
+                    </ul>
                 </div>
             </div>
         </div>
     )
 }
 
-export default Sublist3r;
+export default NucleiScans;

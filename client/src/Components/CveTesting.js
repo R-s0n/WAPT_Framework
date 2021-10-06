@@ -4,7 +4,7 @@ import '../Component.css';
 import NucleiScans from './SubComponents/NucleiScans';
 
 
-const Recon = props => {
+const CveTesting = props => {
     const [currentStep, setCurrentStep] = useState(0);
 
     return (
@@ -36,4 +36,4 @@ const Recon = props => {
     )
 }
 
-export default Recon;
+export default CveTesting;

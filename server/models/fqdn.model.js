@@ -100,6 +100,7 @@ const FqdnSchema = new mongoose.Schema({
     },
     vulns: [{
         host: {type: String},
+        templateID: {type: String},
         info: {
             author: [{
                 type: String
@@ -114,6 +115,9 @@ const FqdnSchema = new mongoose.Schema({
                 type: String
             }]
         },
+        extracted_results: [{
+            type: String
+        }],
         ip: {type: String},
         matched: {type: String},
         templateId: {type: String},
