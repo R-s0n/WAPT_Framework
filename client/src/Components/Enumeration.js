@@ -26,7 +26,7 @@ const Enumeration = props => {
 
     return (
         <>
-        <nav style={{borderBottom: '2px groove #284B63'}} className="pl-2 navbar navbar-expand-lg bg-primary">
+        <nav style={{borderBottom: '2px groove #284B63'}} className="pl-2 pt-0 navbar navbar-expand-lg bg-primary">
             <div className="container-fluid">
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-lg-0">
@@ -41,7 +41,7 @@ const Enumeration = props => {
                 
                 loaded && urlData.endpoints.map((endpoint, i) => { return (
                     <>
-                    <li key={i}><a href={urlData.url + endpoint.endpoint} target="_blank" rel="noreferrer">{endpoint.endpoint}</a></li>
+                    <li key={i}><a href={urlData.url + "/" + endpoint.endpoint} target="_blank" rel="noreferrer">{endpoint.endpoint}</a></li>
                     <ul style={{listStyleType: "none"}}>
                     {
                         endpoint.arjun.params.map((param, j) => { return (
