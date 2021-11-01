@@ -32,9 +32,15 @@ const SubDomainResults = props => {
                 <div style={resultsStyle}>
                 {
                     props.subdomainList.map((subdomain, i)=>{
-                        return (
-                            <p key={i} style={{marginBottom:'1px', marginLeft:'15px'}}><a href={'http://' + subdomain} target="_blank" rel="noreferrer">{subdomain}</a></p>
-                        )
+                        if (subdomain.substring(0,4) === "http") {
+                            return (
+                                <p key={i} style={{marginBottom:'1px', marginLeft:'15px'}}><a href={subdomain} target="_blank" rel="noreferrer">{subdomain}</a></p>
+                            )
+                        } else {
+                            return (
+                                <p key={i} style={{marginBottom:'1px', marginLeft:'15px'}}><a href={'http://' + subdomain} target="_blank" rel="noreferrer">{subdomain}</a></p>
+                            )
+                        }
                     })
                 }
                 </div>
