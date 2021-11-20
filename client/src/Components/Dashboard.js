@@ -104,6 +104,20 @@ const Dashboard = props => {
                         }
                     </div>
                 </div>
+                <div className="col-4">
+                    <h5>Live Domains: {thisFqdn.recon.subdomains.httprobe.length}</h5>
+                    <div style={{width: '300px', height: '300px', padding: '5px', border: '1px solid black', overflowY: 'scroll'}}>
+                        {
+                            thisFqdn.recon.subdomains.httprobe.map((server, i) => {
+                                return (
+                                    <div key={i}>
+                                    <a href={"http://"+server} className="m-0 mt-2" target="_blank" rel="noreferrer">{server}</a><br/>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     );

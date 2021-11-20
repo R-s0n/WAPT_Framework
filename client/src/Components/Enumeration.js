@@ -29,19 +29,17 @@ const Enumeration = props => {
         <nav style={{borderBottom: '2px groove #284B63'}} className="pl-2 pt-0 navbar navbar-expand-lg bg-primary">
             <div className="container-fluid">
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav me-auto mb-lg-0">
-                        <h5 className="text-secondary ml-4">Target URL : &nbsp;&nbsp;{urls[0]}</h5>
-                    </ul>
+                    <h5 className="text-secondary ml-4 pt-0 mb-0">Target URL : &nbsp;&nbsp;<a className="text-secondary" target="_blank" rel="noreferrer" href={urls[0]}>{urls[0]}</a></h5>
                 </div>
             </div>
         </nav>
-        <div className="bg-secondary checklistStyle">
+        <div className="bg-secondary checklistStyle ml-4">
             <ul style={{listStyleType: "none"}}>
             {
                 
-                loaded && urlData.endpoints.map((endpoint, i) => { return (
+                loaded && urlData.endpoints.sort((a, b) => a.endpoint > b.endpoint ? 1:-1).map((endpoint, i) => { return (
                     <>
-                    <li key={i}><a href={urlData.url + "/" + endpoint.endpoint} target="_blank" rel="noreferrer">{endpoint.endpoint}</a></li>
+                    <li key={i}><a href={urlData.url + endpoint.endpoint} target="_blank" rel="noreferrer">{endpoint.endpoint}</a></li>
                     <ul style={{listStyleType: "none"}}>
                     {
                         endpoint.arjun.params.map((param, j) => { return (
