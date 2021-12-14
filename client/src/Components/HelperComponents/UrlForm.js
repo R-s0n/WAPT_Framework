@@ -18,15 +18,18 @@ const UrlForm = props => {
     
     const handleSubmit = (e) => {
         e.preventDefault();
+        let newUrl = url;
+        if (newUrl.slice(-1) === "/"){
+            newUrl = newUrl.substring(0, newUrl.length - 1);
+        }
         let data = {};
         let currentUrls = urlList;
-        currentUrls.push(url);
+        currentUrls.push(newUrl);
         data["_id"] = props.thisFqdn._id;
         data["targetUrls"] = currentUrls;
         console.log(data);
         axios.post('http://localhost:8000/api/fqdn/update', data)
             .then(res=>{
-                let newUrl = url;
                 axios.post('http://localhost:8000/api/url/new', {url:newUrl, fqdn:props.thisFqdn.fqdn})
                     .then(res=>{
                         console.log(res.data);

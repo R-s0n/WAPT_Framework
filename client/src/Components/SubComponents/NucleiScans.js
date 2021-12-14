@@ -1,9 +1,6 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 import {useToasts} from 'react-toast-notifications';
-import SubDomainForm from '../HelperComponents/SubDomainForm';
-import SubDomainResults from '../HelperComponents/SubDomainResults';
-
 
 const NucleiScans = props => {
     const [formCompleted, setFormCompleted] = useState(false);
@@ -46,7 +43,8 @@ const NucleiScans = props => {
                     {
                         vulnList.map((vuln, i)=>{
                             return (
-                                <li key={i} style={{listStyleType:"none"}} onClick={(e)=>setCurrentVuln(i)}>{vuln.info.name}</li>
+                                vuln.info.severity !== "info" ? <li key={i} style={{listStyleType:"none", color:"red"}} onClick={(e)=>setCurrentVuln(i)}>{vuln.info.name}</li> 
+                                : <li key={i} style={{listStyleType:"none"}} onClick={(e)=>setCurrentVuln(i)}>{vuln.info.name}</li>
                             )
                         })
                     }
@@ -58,17 +56,18 @@ const NucleiScans = props => {
                         vulnList.filter(vuln => vulnList.indexOf(vuln) === currentVuln).map(filteredVuln => (
                             <>
                             <p><b>Name:</b> {filteredVuln.info.name}</p>
-                            <p><b>Template ID:</b> {filteredVuln.templateID}</p>
+                            <p><b>Template ID:</b> {filteredVuln['template-id']}</p>
                             <p><b>Tags:</b> {filteredVuln.info.tags.length > 0 ? filteredVuln.info.tags.map((tag) => <>{tag}&nbsp;&nbsp;</>) : <>No Tags</>}</p>
                             <p><b>Severity:</b> {filteredVuln.info.severity}</p>
                             <p><b>Description:</b> {filteredVuln.info.description}</p>
                             <p><b>Host:</b> <a href={filteredVuln.host}  target="_blank" rel="noreferrer">{filteredVuln.host}</a></p>
-                            <p><b>Matched:</b> <a href={filteredVuln.matched}  target="_blank" rel="noreferrer">{filteredVuln.matched}</a></p>
+                            <p><b>Matched:</b> <a href={filteredVuln['matched-at']}  target="_blank" rel="noreferrer">{filteredVuln['matched-at']}</a></p>
+                            <p><b>Match Type:</b> {filteredVuln['matcher-name']}</p>
                             <p><b>IP:</b> {filteredVuln.ip}</p>
                             <p><b>Extracted Results:</b> 
                             <ul>
                             {
-                                filteredVuln.extracted_results && filteredVuln.extracted_results.length > 0 ? filteredVuln.extracted_results.map((result, i)=>{
+                                filteredVuln['extracted-results'] && filteredVuln['extracted-results'].length > 0 ? filteredVuln['extracted-results'].map((result, i)=>{
                                     return (
                                         <li key={i} style={{listStyleType:"none"}}>{result}</li>
                                     )
@@ -87,6 +86,7 @@ const NucleiScans = props => {
                             }
                             </ul>   
                             </p>
+                            <p><b>Curl Command:</b> {filteredVuln['curl-command']}</p>
                             <p><b>Discovered:</b> {filteredVuln.timestamp}</p>
                             </>
                         ))

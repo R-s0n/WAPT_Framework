@@ -99,8 +99,9 @@ const FqdnSchema = new mongoose.Schema({
         }
     },
     vulns: [{
+        impactful: {type: Boolean},
         host: {type: String},
-        templateID: {type: String},
+        "template-id": {type: String},
         info: {
             author: [{
                 type: String
@@ -115,14 +116,15 @@ const FqdnSchema = new mongoose.Schema({
                 type: String
             }]
         },
-        extracted_results: [{
+        "extracted-results": [{
             type: String
         }],
         ip: {type: String},
-        matched: {type: String},
-        templateId: {type: String},
+        "matched-at": {type: String},
+        "matcher-name": {type: String},
         timestamp: {type: String},
         type: {type: String},
+        "curl-command":{type: String},
     }],
     targetUrls: [{
         type: String

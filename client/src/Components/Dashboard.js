@@ -27,6 +27,7 @@ const Dashboard = props => {
                         <li>amass: {thisFqdn.recon.subdomains.amass.length}</li>
                         <li>assetfinder: {thisFqdn.recon.subdomains.assetfinder.length}</li>
                         <li>ctl: {thisFqdn.recon.subdomains.ctl.length}</li>
+                        <li>cloud-ranges: {thisFqdn.recon.subdomains.cloudRanges.length}</li>
                         <li>gau: {thisFqdn.recon.subdomains.gau.length}</li>
                         <li>github-search: {thisFqdn.recon.subdomains.githubSearch.length}</li>
                         <li>gospider: {thisFqdn.recon.subdomains.gospider.length}</li>
@@ -63,10 +64,10 @@ const Dashboard = props => {
                             })
                         }
                     </div>
-                    <h5>Domains Taken Down ({thisFqdn.recon.subdomains.httprobeRemoved.length}):</h5>
+                    <h5>Domains From Cloud Ranges ({thisFqdn.recon.subdomains.cloudRanges.length}):</h5>
                     <div style={{width: '300px', height: '130px', padding: '5px', border: '1px solid black', overflowY: 'scroll'}}>
                         {
-                            thisFqdn.recon.subdomains.httprobeRemoved.map((subdomain, i) => {
+                            thisFqdn.recon.subdomains.cloudRanges.map((subdomain, i) => {
                                 return (
                                     <a style={{display: "block"}} href={subdomain} key={i} target="_blank" rel="noreferrer">{subdomain}</a>
                                 )
@@ -111,7 +112,7 @@ const Dashboard = props => {
                             thisFqdn.recon.subdomains.httprobe.map((server, i) => {
                                 return (
                                     <div key={i}>
-                                    <a href={"http://"+server} className="m-0 mt-2" target="_blank" rel="noreferrer">{server}</a><br/>
+                                    <a href={server} className="m-0 mt-2" target="_blank" rel="noreferrer">{server}</a><br/>
                                     </div>
                                 )
                             })
