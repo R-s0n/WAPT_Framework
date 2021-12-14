@@ -4,6 +4,8 @@ import Dashboard from '../Components/Dashboard';
 import CveTesting from '../Components/CveTesting';
 import Recon from '../Components/Recon';
 import Enumeration from '../Components/Enumeration';
+import Ops from '../Components/Ops';
+
 
 const Fqdn = props => {
     const [activeTab, setActiveTab] = useState(0);
@@ -16,11 +18,11 @@ const Fqdn = props => {
         "CVE Testing",
         "Enumeration",
         "DAST Testing",
+        "Ops Testing",
         "Auth Testing",
         "Injection Testing",
         "Logic Testing",
         "Creative Testing",
-        "White-box",
         "Report"
     ]
 
@@ -70,6 +72,11 @@ const Fqdn = props => {
         {
             activeTab === 3 ?
             <Enumeration thisFqdn={props.thisFqdn} /> :
+            ""
+        }
+        {
+            activeTab === 5 ?
+            <Ops thisFqdn={props.thisFqdn} /> :
             ""
         }
         </>
