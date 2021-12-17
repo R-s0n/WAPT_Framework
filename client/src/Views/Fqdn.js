@@ -5,6 +5,11 @@ import CveTesting from '../Components/CveTesting';
 import Recon from '../Components/Recon';
 import Enumeration from '../Components/Enumeration';
 import Ops from '../Components/Ops';
+import Chaining from '../Components/Chaining';
+import Input from '../Components/Input';
+import Bypass from '../Components/Bypass';
+import Feature from '../Components/Feature';
+import Creative from '../Components/Creative';
 
 
 const Fqdn = props => {
@@ -17,11 +22,11 @@ const Fqdn = props => {
         "Recon",
         "CVE Testing",
         "Enumeration",
-        "DAST Testing",
+        "Chaining",
         "Ops Testing",
-        "Auth Testing",
-        "Injection Testing",
-        "Logic Testing",
+        "Input Testing",
+        "Bypass Testing",
+        "Feature Testing",
         "Creative Testing",
         "Report"
     ]
@@ -75,8 +80,34 @@ const Fqdn = props => {
             ""
         }
         {
+            activeTab === 4 ?
+            <Chaining thisFqdn={props.thisFqdn} /> :
+            ""
+        }
+        {
             activeTab === 5 ?
             <Ops thisFqdn={props.thisFqdn} /> :
+            ""
+        }
+        
+        {
+            activeTab === 6 ?
+            <Input thisFqdn={props.thisFqdn} /> :
+            ""
+        }
+        {
+            activeTab === 7 ?
+            <Bypass thisFqdn={props.thisFqdn} /> :
+            ""
+        }
+        {
+            activeTab === 8 ?
+            <Feature thisFqdn={props.thisFqdn} /> :
+            ""
+        }
+        {
+            activeTab === 9 ?
+            <Creative thisFqdn={props.thisFqdn} /> :
             ""
         }
         </>
