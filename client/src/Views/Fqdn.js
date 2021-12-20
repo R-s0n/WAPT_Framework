@@ -22,12 +22,12 @@ const Fqdn = props => {
         "Recon",
         "CVE Testing",
         "Enumeration",
-        "Chaining",
         "Ops Testing",
         "Input Testing",
         "Bypass Testing",
         "Feature Testing",
         "Creative Testing",
+        "Chaining",
         "Report"
     ]
 
@@ -81,33 +81,33 @@ const Fqdn = props => {
         }
         {
             activeTab === 4 ?
-            <Chaining thisFqdn={props.thisFqdn} /> :
-            ""
-        }
-        {
-            activeTab === 5 ?
             <Ops thisFqdn={props.thisFqdn} /> :
             ""
         }
         
         {
-            activeTab === 6 ?
+            activeTab === 5 ?
             <Input thisFqdn={props.thisFqdn} /> :
             ""
         }
         {
-            activeTab === 7 ?
+            activeTab === 6 ?
             <Bypass thisFqdn={props.thisFqdn} /> :
             ""
         }
         {
-            activeTab === 8 ?
+            activeTab === 7 ?
             <Feature thisFqdn={props.thisFqdn} /> :
             ""
         }
         {
-            activeTab === 9 ?
+            activeTab === 8 ?
             <Creative thisFqdn={props.thisFqdn} /> :
+            ""
+        }
+        {
+            activeTab === 9 ?
+            <Chaining thisFqdn={props.thisFqdn} /> :
             ""
         }
         </>

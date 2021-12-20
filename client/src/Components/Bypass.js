@@ -17,6 +17,14 @@ const Bypass = props => {
             <ul>
                 <li>Authentication Bypass</li>
                 <ul>
+                    <li>Cookie Testing</li>
+                    <ul style={{listStyleType: "none"}}>
+                        <li onClick={(e)=>setCurrentStep(11)}>Basic Checks</li>
+                        <li onClick={(e)=>setCurrentStep(12)}>Decode/Modify Cookie Values</li>
+                        <li onClick={(e)=>setCurrentStep(13)}>Session Fixation</li>
+                        <li onClick={(e)=>setCurrentStep(14)}>Cookie Tossing</li>
+                        <li onClick={(e)=>setCurrentStep(15)}>Padding Oracle Attack</li>
+                    </ul>
                     <li onClick={(e)=>setCurrentStep(0)}>2FA/OTP Bypass</li>
                     <li onClick={(e)=>setCurrentStep(1)}>Payment Process Bypass</li>
                     <li onClick={(e)=>setCurrentStep(2)}>Captcha Bypass</li>
