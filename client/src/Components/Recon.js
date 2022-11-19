@@ -21,6 +21,7 @@ import ShuffleDnsCustom from './SubComponents/ShuffleDnsCustom';
 import CustomWordlist from './SubComponents/CustomWordlist';
 import FindWebServer from './SubComponents/FindWebServer';
 import AddTargetUrl from './SubComponents/AddTargetUrl';
+import GithubBruteDork from './SubComponents/GithubBruteDork';
 import '../Component.css';
 
 const Recon = props => {
@@ -69,6 +70,7 @@ const Recon = props => {
                     <li onClick={(e)=>setCurrentStep(20)}>Final Analysis - EyeWitness</li>
                 </ul>
                 <li onClick={(e)=>setCurrentStep(21)}>Add Target URL</li>
+                <li onClick={(e)=>setCurrentStep(22)}>Github Brute Dork</li>
                 <li>Summary</li>
             </ul>
         </div>
@@ -177,6 +179,11 @@ const Recon = props => {
             {
                 currentStep === 21 ?
                 <AddTargetUrl thisFqdn={props.thisFqdn} /> :
+                ''
+            }
+            {
+                currentStep === 22 ?
+                <ToastProvider><GithubBruteDork thisFqdn={props.thisFqdn} /></ToastProvider> :
                 ''
             }
         </div>
