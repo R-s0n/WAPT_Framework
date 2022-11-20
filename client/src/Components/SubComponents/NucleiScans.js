@@ -57,7 +57,7 @@ const NucleiScans = props => {
                             <>
                             <p><b>Name:</b> {filteredVuln.info.name}</p>
                             <p><b>Template ID:</b> {filteredVuln['template-id']}</p>
-                            <p><b>Tags:</b> {filteredVuln.info.tags.length > 0 ? filteredVuln.info.tags.map((tag) => <>{tag}&nbsp;&nbsp;</>) : <>No Tags</>}</p>
+                            <p><b>Tags:</b> {filteredVuln.info.tags?.length > 0 ? filteredVuln.info.tags.map((tag) => <>{tag}&nbsp;&nbsp;</>) : <>No Tags</>}</p>
                             <p><b>Severity:</b> {filteredVuln.info.severity}</p>
                             <p><b>Description:</b> {filteredVuln.info.description}</p>
                             <p><b>Host:</b> <a href={filteredVuln.host}  target="_blank" rel="noreferrer">{filteredVuln.host}</a></p>
