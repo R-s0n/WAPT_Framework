@@ -46,7 +46,7 @@ const Dashboard = props => {
                         {
                             thisFqdn.recon.subdomains.consolidatedNew.sort().map((subdomain, i) => {
                                 return (
-                                    <a style={{display: "block"}} href={"https://"+subdomain} key={i} target="_blank" rel="noreferrer">{subdomain}</a>
+                                    <a style={{display: "block"}} href={subdomain} key={i} target="_blank" rel="noreferrer">{subdomain}</a>
                                 )
                             })
                         }
@@ -56,9 +56,9 @@ const Dashboard = props => {
                     <h5>Server IPs: ({thisFqdn.ips.length}):</h5>
                     <div style={{width: '300px', height: '130px', padding: '5px', border: '1px solid black', overflowY: 'scroll'}}>
                         {
-                            thisFqdn.ips.map((ip, i) => {
+                            thisFqdn.ips.sort((a, b) => a.ip - b.ip).map((ip, i) => {
                                 return (
-                                    <a style={{display: "block"}} href={ip['ip']} key={i} target="_blank" rel="noreferrer">{ip['ip']}</a>
+                                    <p style={{display: "block", margin: 0}} key={i}>{ip['ip']}</p>
                                 )
                             })
                         }
